@@ -407,7 +407,7 @@ namespace LandasRLTracker
 
         public static string MapPlaylistName(int playlist)
         {
-            var mapa = new Dictionary<int, string>()
+            var map = new Dictionary<int, string>()
             {
                 { 10, "Solo Duel (1vs1)" },
                 { 11, "Doubles (2vs2)" },
@@ -419,13 +419,13 @@ namespace LandasRLTracker
                 { 30, "Snow Day" }
             };
 
-            return mapa[playlist];
+            return map[playlist];
 
         }
 
         public static string MapTierName(int tier)
         {
-            var mapa = new Dictionary<int, string>()
+            var map = new Dictionary<int, string>()
             {
                 { 0, "Unranked" },
                 { 1, "Bronze I" },
@@ -449,13 +449,13 @@ namespace LandasRLTracker
                 { 19, "Grand Champion" }
             };
 
-            return mapa[tier];
+            return map[tier];
 
         }
 
         public static string MapDivisionName(int division)
         {
-            var mapa = new Dictionary<int, string>()
+            var map = new Dictionary<int, string>()
             {
                 { 0, "Div I" },
                 { 1, "Div II" },
@@ -465,7 +465,7 @@ namespace LandasRLTracker
                 // 9: Special case for unranked.
             };
 
-            return mapa[division];
+            return map[division];
 
         }
 
