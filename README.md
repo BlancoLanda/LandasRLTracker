@@ -2,11 +2,14 @@
 
 ## About
 
-Landa's RL Tracker allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist.
+Landa's RL Tracker is a tool written in C# that allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist. Only Steam platform is supported.
 
-Information is obtained using Rocket League local logfiles. No third party queries are made. It checks the logs every 20 seconds and parses all the MMR information it contains.
+Information is obtained using Rocket League local logfiles (Psyonix API is closed from public access). No third party queries are made. It checks the logs every 20 seconds and parses all the MMR information it contains.
 
-The only requirement is having your Rocket League client opened... The tracker does the rest!
+## Usage
+
+The only requirement is having your Rocket League client opened before using Landa's RL Tracker.
+When using it, don't close the console until you finish your sessions. It is responsible of monitoring updates.
 
 ## Information displayed
 
@@ -27,7 +30,7 @@ Landa's RL Tracker displays the following information inside a console:
 ## Tool for streamers
   
   Are you a streamer and do you want to have an overlay with your live stats, like MMR or W/L ratios, but you're tired of updating them manually after each match? Then Landa's RL Tracker is the tool you're looking for.
-  This executable generates a folder called 'StreamerKit'. Inside it, you have a set of files with all the information of your matches you may need!
+  This executable generates a folder called 'StreamerKit'. Inside it, you have a set of files with all the information of your matches you may need. Add whatever stat file you want to show in your streaming!
   
   ###### EXAMPLE: Importing session MMR ratio of 'Standard' playlist to OBS Studio
   
@@ -35,7 +38,11 @@ Landa's RL Tracker displays the following information inside a console:
   2. Name your new Source, e.g., '3s_MMR_Ratio'
   3. Check "Read from file", and select "StreamerKit/Standard (3vs3)/mmr_session_balance.txt" file.
   4. DONE! Now simply choose the font, size, colors and decorate it as you want. This data will automatically update when a match is completed.
-  
+
+## Download
+
+Head to the [Releases page](https://github.com/BlancoLanda/LandasRLTracker/releases) for the executable.
+
 ## Need help?
 
 If you need any help or want to contact me for anything related with this project, you can reach me at [Steam](https://steamcommunity.com/id/blancolanda/) or [Twitter](https://twitter.com/BlancoLanda)!
