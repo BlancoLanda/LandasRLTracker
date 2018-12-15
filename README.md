@@ -41,7 +41,7 @@ Landa's RL Tracker displays the following information inside a console:
 
 ## Download
 
-Head to the [releases page](https://github.com/BlancoLanda/LandasRLTracker/releases) for the executable.
+Head to the [releases page](https://github.com/BlancoLanda/LandasRLTracker/releases) for the executable download link.
 
 ## Need help?
 
