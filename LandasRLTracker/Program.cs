@@ -33,7 +33,7 @@ namespace LandasRLTracker
             while(true)
             {
                 GetMMR(init);
-                System.Threading.Thread.Sleep(20000);
+                System.Threading.Thread.Sleep(10000);
             }
         }
 
