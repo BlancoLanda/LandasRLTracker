@@ -35,7 +35,11 @@ Landa's RL Tracker displays the following information inside a console:
   2. Name your new Source, e.g., '3s_MMR_Ratio'
   3. Check "Read from file", and select "StreamerKit/Standard (3vs3)/mmr_session_balance.txt" file.
   4. DONE! Now simply choose the font, size, colors and decorate it as you want. This data will automatically update when a match is completed.
-  
+
+## Download
+
+Head to the [Releases page](https://github.com/BlancoLanda/LandasRLTracker/releases) for the executable.
+
 ## Need help?
 
 If you need any help or want to contact me for anything related with this project, you can reach me at [Steam](https://steamcommunity.com/id/blancolanda/) or [Twitter](https://twitter.com/BlancoLanda)!
