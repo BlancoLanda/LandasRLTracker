@@ -35,8 +35,6 @@ namespace LandasRLTracker
                 GetMMR(init);
                 System.Threading.Thread.Sleep(20000);
             }
-
-             Console.ReadKey();
         }
 
         static void Init()
@@ -216,12 +214,12 @@ namespace LandasRLTracker
 
                                 if(!statsPerPlaylist.ContainsKey(playlist))
                                 {
-                                    // If first time playing this playlist, add it to the dictionary.
+                                    // If first time playing this playlist in this season, add it to the dictionary.
 
-                                    string mmrRatio = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture)).ToString();
+                                    int mmrInt = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture));
+                                    string mmrRatio = "0";
                                     string playlistSessionWins = "0";
                                     string playlistSessionLoses = "0";
-                                    sessionTotalMmrRatio = sessionTotalMmrRatio + int.Parse(mmrRatio);
 
                                     List<string> stats = new List<string>
                                 {
@@ -235,7 +233,7 @@ namespace LandasRLTracker
                                 };
 
                                     statsPerPlaylist.Add(playlist, stats);
-                                    AnnounceUpdate(playlist, stats, CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture)), "no", "no");
+                                    AnnounceNewPlaylist(playlist, mmrInt);
                                     AppendStatsToFiles(playlist);
 
                                 }
@@ -345,7 +343,7 @@ namespace LandasRLTracker
             }
         }
 
-        // Method that creates files with all the stats. It allos streamers to have live updates of their RL stats on screen.
+        // Method that creates files with all the stats. It allow streamers to have live updates of their RL stats on screen.
 
         static void AppendStatsToFiles()
         {
@@ -434,6 +432,23 @@ namespace LandasRLTracker
             System.Threading.Thread.Sleep(100);
             Console.WriteLine("...\n");
         }
+
+        static void AnnounceNewPlaylist(string playlist, int mmr)
+        {
+            Console.WriteLine("[{0}] New UPDATE of your MMR stats detected!\n", DateTime.Now);
+
+            Console.WriteLine("[{0}] You've just finished your first ranked match in this playlist this season!", MapPlaylistName(int.Parse(playlist)));
+            Console.WriteLine("[{0}] Current MMR: {1}", MapPlaylistName(int.Parse(playlist)), mmr.ToString());
+            Console.WriteLine("[INFO] Can't determine with the logs if the outcome of 'first playlist matches' are win or lose. Ignoring this match for MMR ratio & W/L ratio calculations.");
+            Console.WriteLine("[INFO] Next matches in this playlist won't have this problem! Keep playing :)\n");
+
+            System.Threading.Thread.Sleep(1000);
+
+            Console.WriteLine("RESUMING THE LIVE TRACKING. DO NOT CLOSE THIS WINDOW!");
+            System.Threading.Thread.Sleep(100);
+            Console.WriteLine("...\n");
+        }
+    
 
         static void PrintMmrWelcomeScreen()
         {
