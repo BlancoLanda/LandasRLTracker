@@ -30,7 +30,7 @@ Landa's RL Tracker displays the following information inside a console:
 ## Tool for streamers
   
   Are you a streamer and do you want to have an overlay with your live stats, like MMR or W/L ratios, but you're tired of updating them manually after each match? Then Landa's RL Tracker is the tool you're looking for.
-  This executable generates a folder called 'StreamerKit'. Inside it, you have a set of files with all the information of your matches you may need!
+  This executable generates a folder called 'StreamerKit'. Inside it, you have a set of files with all the information of your matches you may need. Add whatever stat file you want to show in your streaming!
   
   ###### EXAMPLE: Importing session MMR ratio of 'Standard' playlist to OBS Studio
   
