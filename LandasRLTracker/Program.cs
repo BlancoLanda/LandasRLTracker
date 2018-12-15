@@ -15,6 +15,7 @@ namespace LandasRLTracker
     {
         readonly static string RLLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\Launch.log");
         readonly static string LandaLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\LandaRL.log");
+        readonly static string streamerKitFolder = @"StreamerKit\";
         public static string steamId;
         public static string steamNickname;
         public static int sessionTotalGames;
@@ -29,16 +30,13 @@ namespace LandasRLTracker
 
             Init();
 
-            // SIGUIENTE PASO: LLAMAR A AnnounceUpdate()!!!
-            var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromSeconds(5);
-
-            var timer = new System.Threading.Timer((e) =>
+            while(true)
             {
                 GetMMR(init);
-            }, null, startTimeSpan, periodTimeSpan);
+                System.Threading.Thread.Sleep(20000);
+            }
 
-            Console.ReadKey();
+             Console.ReadKey();
         }
 
         static void Init()
@@ -80,6 +78,7 @@ namespace LandasRLTracker
                 bool init = true;
 
                 GetMMR(init);
+                AppendStatsToFiles();
                 PrintMmrWelcomeScreen();
 
                 System.Threading.Thread.Sleep(1000);
@@ -124,6 +123,7 @@ namespace LandasRLTracker
 
             if (File.Exists(RLLogPath) == true)
             {
+                // I copy the Rocket League log and work with it in another location in every instance, because Rocket League process is already accesing and writing this file constantly. I don't want to interrupt it.
                 File.Copy(RLLogPath, LandaLogPath);
                 // I check the log files upside down (reversely) because MMR data is closer to the end of the file.
                 foreach (string line in File.ReadAllLines(LandaLogPath).Reverse())
@@ -141,7 +141,7 @@ namespace LandasRLTracker
                         //Start (upside down end) of skill rating information for this steamId.
                         //Process lines here and get information.
 
-                        if (line.Contains("HandleSkillRequestCompleteRPC"))
+                        if (line.Contains("HandleSkillRequestCompleteRPC") || !line.Contains("SkillDecay:"))
                         {
                             File.Delete(LandaLogPath);
                             break;
@@ -236,6 +236,7 @@ namespace LandasRLTracker
 
                                     statsPerPlaylist.Add(playlist, stats);
                                     AnnounceUpdate(playlist, stats, CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture)), "no", "no");
+                                    AppendStatsToFiles(playlist);
 
                                 }
                                 else
@@ -315,7 +316,7 @@ namespace LandasRLTracker
 
                                         // Time to announce the update in console.
                                         AnnounceUpdate(playlist, stats, mmrWonOrLost, tierChange, divisionChange);
-
+                                        AppendStatsToFiles(playlist);
                                     }
                                 }
                             } else
@@ -344,6 +345,55 @@ namespace LandasRLTracker
             }
         }
 
+        // Method that creates files with all the stats. It allos streamers to have live updates of their RL stats on screen.
+
+        static void AppendStatsToFiles()
+        {
+            foreach (var playlist in statsPerPlaylist.Keys)
+            {
+                Directory.CreateDirectory(streamerKitFolder);
+                Directory.CreateDirectory(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)));
+
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr.txt", CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture)).ToString());
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\rank_name.txt", MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])));
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_balance.txt", int.Parse((statsPerPlaylist[playlist])[4]).ToString("+0;-#"));
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\wins.txt", (statsPerPlaylist[playlist])[5].ToString());
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", (statsPerPlaylist[playlist])[6].ToString());
+                string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse((statsPerPlaylist[playlist])[6])).ToString();
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\total_games.txt", totalPlaylistGames);
+
+            }
+
+            Directory.CreateDirectory(streamerKitFolder + @"\Global");
+            File.WriteAllText(streamerKitFolder + @"\Global\mmr_session_balance.txt", sessionTotalMmrBalance.ToString("+0;-#"));
+            File.WriteAllText(streamerKitFolder + @"\Global\wins.txt", sessionTotalWins.ToString());
+            File.WriteAllText(streamerKitFolder + @"\Global\loses.txt", sessionTotalLoses.ToString());
+            File.WriteAllText(streamerKitFolder + @"\Global\total_games.txt", sessionTotalGames.ToString());
+            File.WriteAllText(streamerKitFolder + @"\Global\last_update_timestamp.txt", DateTime.Now.ToString());
+
+        }
+
+        static void AppendStatsToFiles(string playlist)
+        {
+            Directory.CreateDirectory(streamerKitFolder);
+            Directory.CreateDirectory(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)));
+            Directory.CreateDirectory(streamerKitFolder + @"\Global");
+
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr.txt", CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture)).ToString());
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\rank_name.txt", MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])));
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_balance.txt", int.Parse((statsPerPlaylist[playlist])[4]).ToString("+0;-#"));
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\wins.txt", (statsPerPlaylist[playlist])[5].ToString());
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", (statsPerPlaylist[playlist])[6].ToString());
+            string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse((statsPerPlaylist[playlist])[6])).ToString();
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\total_games.txt", totalPlaylistGames);
+
+            File.WriteAllText(streamerKitFolder + @"\Global\mmr_session_balance.txt", sessionTotalMmrBalance.ToString("+0;-#"));
+            File.WriteAllText(streamerKitFolder + @"\Global\wins.txt", sessionTotalWins.ToString());
+            File.WriteAllText(streamerKitFolder + @"\Global\loses.txt", sessionTotalLoses.ToString());
+            File.WriteAllText(streamerKitFolder + @"\Global\total_games.txt", sessionTotalGames.ToString());
+            File.WriteAllText(streamerKitFolder + @"\Global\last_update_timestamp.txt", DateTime.Now.ToString());
+        }
+
         static void AnnounceUpdate(string playlist, List<string> stats, int mmrWonOrLost, string tierChange, string divisionChange)
         {
 
@@ -369,9 +419,10 @@ namespace LandasRLTracker
             {
                 Console.WriteLine("[{0}] You've just got one division down!", MapPlaylistName(int.Parse(playlist)));
             }
+            Console.WriteLine("[{0}] Current rank: {1} {2}", MapPlaylistName(int.Parse(playlist)), MapTierName(int.Parse(stats[1])), MapDivisionName(int.Parse(stats[2])));
+            Console.WriteLine("[{0}] Current MMR: {1}", MapPlaylistName(int.Parse(playlist)), CalculateRescaledMmr(decimal.Parse(stats[0], CultureInfo.InvariantCulture)).ToString());
             Console.WriteLine("[{0}] Playlist Session MMR balance: {1} ", MapPlaylistName(int.Parse(playlist)), int.Parse(stats[4]).ToString("+0;-#"));
             string playlistTotalGames = (int.Parse(stats[5]) + int.Parse(stats[6])).ToString();
-            Console.WriteLine("[{0}] Current rank: {1} {2}", MapPlaylistName(int.Parse(playlist)), MapTierName(int.Parse(stats[1])), MapDivisionName(int.Parse(stats[2])));
             Console.WriteLine("[{0}] Playlist Session W/L balance: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), playlistTotalGames, stats[5], stats[6]);
 
             Console.WriteLine("[TOTAL] Total Session MMR balance: {1} ", MapPlaylistName(int.Parse(playlist)), sessionTotalMmrBalance.ToString("+0;-#"));
@@ -379,7 +430,7 @@ namespace LandasRLTracker
 
             System.Threading.Thread.Sleep(1000);
 
-            Console.WriteLine("CONTINUING LIVE TRACKING. DO NOT CLOSE THIS WINDOW!");
+            Console.WriteLine("RESUMING THE LIVE TRACKING. DO NOT CLOSE THIS WINDOW!");
             System.Threading.Thread.Sleep(100);
             Console.WriteLine("...\n");
         }
