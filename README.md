@@ -6,7 +6,10 @@ Landa's RL Tracker is a tool written in C# that allows tracking Rocket League ga
 
 Information is obtained using Rocket League local logfiles. No third party queries are made. It checks the logs every 20 seconds and parses all the MMR information it contains.
 
-The only requirement is having your Rocket League client opened... The tracker does the rest!
+## Usage
+
+The only requirement is having your Rocket League client opened before using Landa's RL Tracker.
+When using it, don't close the console until you finish your sessions. It is responsible of monitoring updates.
 
 ## Information displayed
 
