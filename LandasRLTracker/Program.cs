@@ -21,7 +21,7 @@ namespace LandasRLTracker
         public static int sessionTotalGames;
         public static int sessionTotalLoses;
         public static int sessionTotalWins;
-        public static int sessionTotalMmrBalance;
+        public static int sessionTotalMmrRatio;
         public static SortedDictionary<string, List<string>> statsPerPlaylist = new SortedDictionary<string, List<string>>();
 
         static void Main(string[] args)
@@ -48,7 +48,7 @@ namespace LandasRLTracker
 
             sessionTotalLoses = 0;
             sessionTotalWins = 0;
-            sessionTotalMmrBalance = 0;
+            sessionTotalMmrRatio = 0;
             sessionTotalGames = 0;
 
             if (File.Exists(LandaLogPath))
@@ -212,16 +212,16 @@ namespace LandasRLTracker
 
                             if (!init)
                             {
-                                // If this method wasn't called from Init(), it means we have to check if there are updates, and, if it's the case, recalculate de MMR balance using previous data.
+                                // If this method wasn't called from Init(), it means we have to check if there are updates, and, if it's the case, recalculate de MMR ratio using previous data.
 
                                 if(!statsPerPlaylist.ContainsKey(playlist))
                                 {
                                     // If first time playing this playlist, add it to the dictionary.
 
-                                    string mmrBalance = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture)).ToString();
+                                    string mmrRatio = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture)).ToString();
                                     string playlistSessionWins = "0";
                                     string playlistSessionLoses = "0";
-                                    sessionTotalMmrBalance = sessionTotalMmrBalance + int.Parse(mmrBalance);
+                                    sessionTotalMmrRatio = sessionTotalMmrRatio + int.Parse(mmrRatio);
 
                                     List<string> stats = new List<string>
                                 {
@@ -229,7 +229,7 @@ namespace LandasRLTracker
                                     tier,
                                     division,
                                     matchesPlayed,
-                                    mmrBalance,
+                                    mmrRatio,
                                     playlistSessionWins,
                                     playlistSessionLoses
                                 };
@@ -251,8 +251,8 @@ namespace LandasRLTracker
                                         int mmrWonOrLost = numericMmr - numericPreviousMmr;
                                         string playlistSessionWins = statsPerPlaylist[playlist][5];
                                         string playlistSessionLoses = statsPerPlaylist[playlist][6];
-                                        string mmrBalance = (int.Parse(statsPerPlaylist[playlist][4]) + mmrWonOrLost).ToString();
-                                        sessionTotalMmrBalance = sessionTotalMmrBalance + mmrWonOrLost;
+                                        string mmrRatio = (int.Parse(statsPerPlaylist[playlist][4]) + mmrWonOrLost).ToString();
+                                        sessionTotalMmrRatio = sessionTotalMmrRatio + mmrWonOrLost;
                                         sessionTotalGames++;
                                         if (mmrWonOrLost > 0)
                                         {
@@ -307,7 +307,7 @@ namespace LandasRLTracker
                                         tier,
                                         division,
                                         matchesPlayed,
-                                        mmrBalance,
+                                        mmrRatio,
                                         playlistSessionWins,
                                         playlistSessionLoses
                                     };
@@ -322,7 +322,7 @@ namespace LandasRLTracker
                             } else
                             {
 
-                                string mmrBalance = "0";
+                                string mmrRatio = "0";
                                 string playlistSessionWins = "0";
                                 string playlistSessionLoses = "0";
 
@@ -332,7 +332,7 @@ namespace LandasRLTracker
                                     tier,
                                     division,
                                     matchesPlayed,
-                                    mmrBalance,
+                                    mmrRatio,
                                     playlistSessionWins,
                                     playlistSessionLoses
                                 };
@@ -356,7 +356,7 @@ namespace LandasRLTracker
 
                 File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr.txt", CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture)).ToString());
                 File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\rank_name.txt", MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])));
-                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_balance.txt", int.Parse((statsPerPlaylist[playlist])[4]).ToString("+0;-#"));
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_ratio.txt", int.Parse((statsPerPlaylist[playlist])[4]).ToString("+0;-#"));
                 File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\wins.txt", (statsPerPlaylist[playlist])[5].ToString());
                 File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", (statsPerPlaylist[playlist])[6].ToString());
                 string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse((statsPerPlaylist[playlist])[6])).ToString();
@@ -365,7 +365,7 @@ namespace LandasRLTracker
             }
 
             Directory.CreateDirectory(streamerKitFolder + @"\Global");
-            File.WriteAllText(streamerKitFolder + @"\Global\mmr_session_balance.txt", sessionTotalMmrBalance.ToString("+0;-#"));
+            File.WriteAllText(streamerKitFolder + @"\Global\mmr_session_ratio.txt", sessionTotalMmrRatio.ToString("+0;-#"));
             File.WriteAllText(streamerKitFolder + @"\Global\wins.txt", sessionTotalWins.ToString());
             File.WriteAllText(streamerKitFolder + @"\Global\loses.txt", sessionTotalLoses.ToString());
             File.WriteAllText(streamerKitFolder + @"\Global\total_games.txt", sessionTotalGames.ToString());
@@ -381,13 +381,13 @@ namespace LandasRLTracker
 
             File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr.txt", CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture)).ToString());
             File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\rank_name.txt", MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])));
-            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_balance.txt", int.Parse((statsPerPlaylist[playlist])[4]).ToString("+0;-#"));
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_ratio.txt", int.Parse((statsPerPlaylist[playlist])[4]).ToString("+0;-#"));
             File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\wins.txt", (statsPerPlaylist[playlist])[5].ToString());
             File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", (statsPerPlaylist[playlist])[6].ToString());
             string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse((statsPerPlaylist[playlist])[6])).ToString();
             File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\total_games.txt", totalPlaylistGames);
 
-            File.WriteAllText(streamerKitFolder + @"\Global\mmr_session_balance.txt", sessionTotalMmrBalance.ToString("+0;-#"));
+            File.WriteAllText(streamerKitFolder + @"\Global\mmr_session_ratio.txt", sessionTotalMmrRatio.ToString("+0;-#"));
             File.WriteAllText(streamerKitFolder + @"\Global\wins.txt", sessionTotalWins.ToString());
             File.WriteAllText(streamerKitFolder + @"\Global\loses.txt", sessionTotalLoses.ToString());
             File.WriteAllText(streamerKitFolder + @"\Global\total_games.txt", sessionTotalGames.ToString());
@@ -421,12 +421,12 @@ namespace LandasRLTracker
             }
             Console.WriteLine("[{0}] Current rank: {1} {2}", MapPlaylistName(int.Parse(playlist)), MapTierName(int.Parse(stats[1])), MapDivisionName(int.Parse(stats[2])));
             Console.WriteLine("[{0}] Current MMR: {1}", MapPlaylistName(int.Parse(playlist)), CalculateRescaledMmr(decimal.Parse(stats[0], CultureInfo.InvariantCulture)).ToString());
-            Console.WriteLine("[{0}] Playlist Session MMR balance: {1} ", MapPlaylistName(int.Parse(playlist)), int.Parse(stats[4]).ToString("+0;-#"));
+            Console.WriteLine("[{0}] Playlist Session MMR ratio: {1} ", MapPlaylistName(int.Parse(playlist)), int.Parse(stats[4]).ToString("+0;-#"));
             string playlistTotalGames = (int.Parse(stats[5]) + int.Parse(stats[6])).ToString();
-            Console.WriteLine("[{0}] Playlist Session W/L balance: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), playlistTotalGames, stats[5], stats[6]);
+            Console.WriteLine("[{0}] Playlist Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), playlistTotalGames, stats[5], stats[6]);
 
-            Console.WriteLine("[TOTAL] Total Session MMR balance: {1} ", MapPlaylistName(int.Parse(playlist)), sessionTotalMmrBalance.ToString("+0;-#"));
-            Console.WriteLine("[TOTAL] Total Session W/L balance: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), sessionTotalGames, sessionTotalWins, sessionTotalLoses);
+            Console.WriteLine("[TOTAL] Total Session MMR ratio: {1} ", MapPlaylistName(int.Parse(playlist)), sessionTotalMmrRatio.ToString("+0;-#"));
+            Console.WriteLine("[TOTAL] Total Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), sessionTotalGames, sessionTotalWins, sessionTotalLoses);
 
             System.Threading.Thread.Sleep(1000);
 
