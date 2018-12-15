@@ -58,7 +58,10 @@ namespace LandasRLTracker
             {
 
                 Console.WriteLine("Welcome to Landa's RL Tracker v1.0!");
-                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine("----------------------------------------------\n");
+                System.Threading.Thread.Sleep(100);
+                Console.WriteLine("[INFO] Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!\n");
+                System.Threading.Thread.Sleep(1000);
                 steamId = SetSteamId();
                 steamNickname = SetNicknameFromId(steamId);
                 Process[] pname = Process.GetProcessesByName("RocketLeague");
