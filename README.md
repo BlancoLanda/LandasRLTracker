@@ -2,7 +2,7 @@
 
 ## About
 
-Landa's RL Tracker allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist.
+Landa's RL Tracker is a tool written in C# that allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist.
 
 Information is obtained using Rocket League local logfiles. No third party queries are made. It checks the logs every 20 seconds and parses all the MMR information it contains.
 
