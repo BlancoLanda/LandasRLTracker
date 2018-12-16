@@ -8,7 +8,7 @@ Information is obtained using Rocket League local logfiles (Psyonix API is close
 
 ## Usage
 
-The only requirement is having your Rocket League client opened before using Landa's RL Tracker.
+The only requirement is having your Rocket League client opened BEFORE using Landa's RL Tracker.
 When using it, don't close the console until you finish your sessions. It is responsible of monitoring updates.
 
 ## Information displayed
