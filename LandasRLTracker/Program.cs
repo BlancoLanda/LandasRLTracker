@@ -254,11 +254,11 @@ namespace LandasRLTracker
                                     playlistSessionWins,
                                     playlistSessionLoses
                                 };
-
-                                    statsPerPlaylist.Add(playlist, stats);
-                                    AnnounceNewPlaylist(playlist, mmrInt);
-                                    AppendStatsToFiles(playlist);
-
+                                    if (!statsPerPlaylist.ContainsKey(playlist)){
+                                        statsPerPlaylist.Add(playlist, stats);
+                                        AnnounceNewPlaylist(playlist, mmrInt);
+                                        AppendStatsToFiles(playlist);
+                                    }
                                 }
                                 else
                                 {
@@ -358,7 +358,10 @@ namespace LandasRLTracker
                                     playlistSessionLoses
                                 };
 
-                                statsPerPlaylist.Add(playlist, stats);
+                                if (!statsPerPlaylist.ContainsKey(playlist))
+                                {
+                                    statsPerPlaylist.Add(playlist, stats);
+                                }
                             }
                         }
                     }
