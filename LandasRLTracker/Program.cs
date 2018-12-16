@@ -15,7 +15,6 @@ namespace LandasRLTracker
     class Program
     {
         readonly static string RLLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\Launch.log");
-        readonly static string LandaLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\LandaRL.log");
         readonly static string streamerKitFolder = @"StreamerKit\";
         readonly static string version = "v1.1";
         public static string steamId;
@@ -47,11 +46,6 @@ namespace LandasRLTracker
             sessionTotalWins = 0;
             sessionTotalMmrRatio = 0;
             sessionTotalGames = 0;
-
-            if (File.Exists(LandaLogPath))
-            {
-                File.Delete(LandaLogPath);
-            }
 
             if (File.Exists(RLLogPath))
             {
