@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using Octokit;
 
 namespace LandasRLTracker
 {
@@ -16,6 +17,7 @@ namespace LandasRLTracker
         readonly static string RLLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\Launch.log");
         readonly static string LandaLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\LandaRL.log");
         readonly static string streamerKitFolder = @"StreamerKit\";
+        readonly static string version = "v1.0";
         public static string steamId;
         public static string steamNickname;
         public static int sessionTotalGames;
@@ -57,8 +59,9 @@ namespace LandasRLTracker
             if (File.Exists(RLLogPath))
             {
 
-                Console.WriteLine("Welcome to Landa's RL Tracker v1.0!");
+                Console.WriteLine("Welcome to Landa's RL Tracker " + version);
                 Console.WriteLine("----------------------------------------------\n");
+                CheckUpdates();
                 System.Threading.Thread.Sleep(100);
                 Console.WriteLine("[INFO] Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!\n");
                 System.Threading.Thread.Sleep(1000);
@@ -116,6 +119,23 @@ namespace LandasRLTracker
             string name = steamUserApi.SelectSingleNode("profile/steamID").FirstChild.Value;
 
             return name;
+        }
+
+        static string GetVersion()
+        {
+            var client = new GitHubClient(new ProductHeaderValue("LandasRLTracker"));
+            var releases = client.Repository.Release.GetAll("BlancoLanda", "LandasRLTracker").Result;
+            var latestTagName = releases[0].TagName;
+            return latestTagName;
+        }
+
+        static void CheckUpdates()
+        {
+            if(!GetVersion().Equals(version))
+            {
+                Console.WriteLine("[INFO] Version outdated! This version: {0}, New version: {1}", version, GetVersion());
+                Console.WriteLine(@"[INFO] Download latest version at https://github.com/BlancoLanda/LandasRLTracker for better functionality!");
+            }
         }
 
         static void GetMMR(bool init)
