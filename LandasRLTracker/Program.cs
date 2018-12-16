@@ -289,6 +289,7 @@ namespace LandasRLTracker
                                     }
                                     else if(line.Contains("Tier=19"))
                                     {
+                                        // Avoid showing "Div I" for Grand Champs.
                                         tier = "19";
                                         division = "9";
                                     } else
