@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using MarkdownLog;
 using Newtonsoft.Json.Linq;
 
 namespace LandasRLTracker
@@ -16,7 +17,7 @@ namespace LandasRLTracker
     {
         readonly static string RLLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\Launch.log");
         readonly static string streamerKitFolder = @"StreamerKit\";
-        readonly static string version = "v1.1";
+        readonly static string version = "v1.2";
         public static string steamId;
         public static string steamNickname;
         public static string storedLine;
@@ -26,6 +27,7 @@ namespace LandasRLTracker
         public static int sessionTotalMmrRatio;
         public static SortedDictionary<string, List<string>> statsPerPlaylist = new SortedDictionary<string, List<string>>();
         public static List<string> initialPlaylists = new List<string>();
+        public static int dotCounter = 0;
 
         static void Main(string[] args)
         {
@@ -52,7 +54,8 @@ namespace LandasRLTracker
                 Console.WriteLine("----------------------------------------------\n");
                 CheckUpdates();
                 System.Threading.Thread.Sleep(100);
-                Console.WriteLine("[INFO] Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!\n");
+                PrintInfoTag();
+                Console.WriteLine(" Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!\n");
                 System.Threading.Thread.Sleep(1000);
                 steamId = SetSteamId();
                 steamNickname = SetNicknameFromId(steamId);
@@ -65,7 +68,7 @@ namespace LandasRLTracker
                 }
                 Console.WriteLine("Steam/RL nickname detected:      {0}\n", steamNickname);
                 System.Threading.Thread.Sleep(1000);
-                Console.WriteLine("Getting MMR data of your account...\n");
+                Console.Write("Getting MMR data of your account...");
                 System.Threading.Thread.Sleep(1000);
 
                 GetInitialPlaylists();
@@ -75,9 +78,8 @@ namespace LandasRLTracker
 
                 System.Threading.Thread.Sleep(1000);
 
-                Console.WriteLine("\nSTARTED LIVE TRACKING. DO NOT CLOSE THIS WINDOW!");
+                Console.WriteLine("\nStarted live tracking. Do not close this window!");
                 System.Threading.Thread.Sleep(100);
-                Console.WriteLine("...\n");
 
                 // Initial process finish. Now it's time to start listening to new updates...
 
@@ -562,6 +564,19 @@ namespace LandasRLTracker
                 catch { }
 
                 System.Threading.Thread.Sleep(1000);
+
+                if(dotCounter < 3)
+                {
+                    Console.Write(".");
+                    dotCounter++;
+                } else
+                {
+                    dotCounter = 0;
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    ClearCurrentConsoleLine();
+                    Console.Write(".");
+                    dotCounter++;
+                }
             }
         }
 
@@ -586,12 +601,6 @@ namespace LandasRLTracker
 
         static string GetLatestVersion()
         {
-            /*
-            var client = new GitHubClient(new ProductHeaderValue("LandasRLTracker"));
-            var releases = client.Repository.Release.GetAll("BlancoLanda", "LandasRLTracker").Result;
-            var latestTagName = releases[0].TagName;
-            return latestTagName;
-            */
 
             const string GITHUB_API = "https://api.github.com/repos/BlancoLanda/LandasRLTracker/releases";
             WebClient webClient = new WebClient();
@@ -620,8 +629,10 @@ namespace LandasRLTracker
             
             if(!GetLatestVersion().Equals(version))
             {
-                Console.WriteLine("[INFO] Version outdated! This version: {0}, New version: {1}", version, GetLatestVersion());
-                Console.WriteLine(@"[INFO] Download latest version at https://github.com/BlancoLanda/LandasRLTracker for better functionality!");
+                PrintInfoTag();
+                Console.WriteLine(" Version outdated! This version: {0}, New version: {1}", version, GetLatestVersion());
+                PrintInfoTag();
+                Console.WriteLine(@" Download latest version at https://github.com/BlancoLanda/LandasRLTracker for better functionality!");
             }
             
         }
@@ -677,120 +688,154 @@ namespace LandasRLTracker
 
         static void AnnounceUpdate(string playlist, List<string> stats, int mmrWonOrLost, string tierChange, string divisionChange)
         {
-
-            Console.WriteLine("[{0}] New UPDATE of your MMR stats detected!\n", DateTime.Now);
+            Console.WriteLine("\n");
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("[{0}]", DateTime.Now);
+            Console.ResetColor();
+            Console.Write(" New UPDATE of your MMR stats detected! Playlist: ");
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write(MapPlaylistName(int.Parse(playlist)));
+            Console.ResetColor();
+            Console.WriteLine("\n");
 
             if (mmrWonOrLost > 0)
-                Console.WriteLine("[{0}] You've just won {1} MMR!", MapPlaylistName(int.Parse(playlist)), mmrWonOrLost.ToString("+0;-#"));
+            {
+                PrintPlaylistTag(playlist);
+                Console.WriteLine(" You've just won {1} MMR!", MapPlaylistName(int.Parse(playlist)), mmrWonOrLost.ToString("+0;-#"));
+            }
+
             else
-                Console.WriteLine("[{0}] You've just lost {1} MMR!", MapPlaylistName(int.Parse(playlist)), mmrWonOrLost);
+            {
+                PrintPlaylistTag(playlist);
+                Console.WriteLine(" You've just lost {1} MMR!", MapPlaylistName(int.Parse(playlist)), mmrWonOrLost);
+            }
+
             if (tierChange.Equals("up"))
             {
-                Console.WriteLine("[{0}] You've just ranked up!", MapPlaylistName(int.Parse(playlist)));
+                PrintPlaylistTag(playlist);
+                Console.WriteLine(" You've just ranked up!", MapPlaylistName(int.Parse(playlist)));
             }
             else if (tierChange.Equals("down"))
             {
-                Console.WriteLine("[{0}] You've just ranked down!", MapPlaylistName(int.Parse(playlist)));
+                PrintPlaylistTag(playlist);
+                Console.WriteLine(" You've just ranked down!", MapPlaylistName(int.Parse(playlist)));
             }
             else if (divisionChange.Equals("up"))
             {
-                Console.WriteLine("[{0}] You've just got one division up!", MapPlaylistName(int.Parse(playlist)));
+                PrintPlaylistTag(playlist);
+                Console.WriteLine(" You've just got one division up!", MapPlaylistName(int.Parse(playlist)));
             }
             else if (divisionChange.Equals("down"))
             {
-                Console.WriteLine("[{0}] You've just got one division down!", MapPlaylistName(int.Parse(playlist)));
+                PrintPlaylistTag(playlist);
+                Console.WriteLine(" You've just got one division down!", MapPlaylistName(int.Parse(playlist)));
             }
-            Console.WriteLine("[{0}] Current rank: {1} {2}", MapPlaylistName(int.Parse(playlist)), MapTierName(int.Parse(stats[1])), MapDivisionName(int.Parse(stats[2])));
-            Console.WriteLine("[{0}] Current MMR: {1}", MapPlaylistName(int.Parse(playlist)), CalculateRescaledMmr(decimal.Parse(stats[0], CultureInfo.InvariantCulture)).ToString());
-            Console.WriteLine("[{0}] Playlist Session MMR ratio: {1} ", MapPlaylistName(int.Parse(playlist)), int.Parse(stats[4]).ToString("+0;-#"));
+            PrintPlaylistTag(playlist);
+            Console.Write(" Current rank: {0} {1}\n", MapTierName(int.Parse(stats[1])), MapDivisionName(int.Parse(stats[2])));
+            PrintPlaylistTag(playlist);
+            Console.WriteLine(" Current MMR: {1}", MapPlaylistName(int.Parse(playlist)), CalculateRescaledMmr(decimal.Parse(stats[0], CultureInfo.InvariantCulture)).ToString());
+            PrintPlaylistTag(playlist);
+            Console.WriteLine(" Playlist Session MMR ratio: {1} ", MapPlaylistName(int.Parse(playlist)), int.Parse(stats[4]).ToString("+0;-#"));
             string playlistTotalGames = (int.Parse(stats[5]) + int.Parse(stats[6])).ToString();
-            Console.WriteLine("[{0}] Playlist Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), playlistTotalGames, stats[5], stats[6]);
+            PrintPlaylistTag(playlist);
+            Console.WriteLine(" Playlist Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), playlistTotalGames, stats[5], stats[6]);
 
-            Console.WriteLine("[TOTAL] Total Session MMR ratio: {1} ", MapPlaylistName(int.Parse(playlist)), sessionTotalMmrRatio.ToString("+0;-#"));
-            Console.WriteLine("[TOTAL] Total Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), sessionTotalGames, sessionTotalWins, sessionTotalLoses);
+            PrintGlobalTag();
+            Console.WriteLine(" Total Session MMR ratio: {1} ", MapPlaylistName(int.Parse(playlist)), sessionTotalMmrRatio.ToString("+0;-#"));
+            PrintGlobalTag();
+            Console.WriteLine(" Total Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), sessionTotalGames, sessionTotalWins, sessionTotalLoses);
 
             System.Threading.Thread.Sleep(1000);
 
-            Console.WriteLine("RESUMING THE LIVE TRACKING. DO NOT CLOSE THIS WINDOW!");
+            Console.WriteLine("Resuming live tracking. Do not close this window!");
             System.Threading.Thread.Sleep(100);
-            Console.WriteLine("...\n");
+        }
+
+        static void PrintPlaylistTag(string playlist)
+        {
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("[" + MapPlaylistName(int.Parse(playlist)) + "]");
+            Console.ResetColor();
+        }
+
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
+
+        static void PrintGlobalTag()
+        {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("[GLOBAL]");
+            Console.ResetColor();
+        }
+
+        static void PrintInfoTag()
+        {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("[INFO]");
+            Console.ResetColor();
         }
 
         static void AnnounceNewPlaylist(string playlist, int mmr)
         {
-            Console.WriteLine("[{0}] New UPDATE of your MMR stats detected! Playlist: {1}\n", DateTime.Now, playlist);
+            Console.WriteLine("\n");
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("[{0}]", DateTime.Now);
+            Console.ResetColor();
+            Console.Write(" New UPDATE of your MMR stats detected! Playlist: ");
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write(MapPlaylistName(int.Parse(playlist)));
+            Console.ResetColor();
+            Console.WriteLine("\n");
 
-            Console.WriteLine("[{0}] You've just finished your first ranked match in this playlist this season!", MapPlaylistName(int.Parse(playlist)));
-            Console.WriteLine("[{0}] Current MMR: {1}", MapPlaylistName(int.Parse(playlist)), mmr.ToString());
-            Console.WriteLine("[INFO] Can't determine with the logs if the outcome of 'first playlist matches' are win or lose. Ignoring this match for MMR ratio & W/L ratio calculations.");
-            Console.WriteLine("[INFO] Next matches in this playlist won't have this problem! Keep playing :)\n");
+            PrintPlaylistTag(playlist);
+            Console.WriteLine(" You've just finished your first ranked match in this playlist this season!", MapPlaylistName(int.Parse(playlist)));
+            PrintPlaylistTag(playlist);
+            Console.WriteLine(" Current MMR: {1}", MapPlaylistName(int.Parse(playlist)), mmr.ToString());
+            PrintPlaylistTag(playlist);
+            Console.WriteLine(" Can't determine with the logs if the outcome of 'first playlist matches of the season' are win or lose. Ignoring this match for MMR ratio & W/L ratio calculations.");
+            PrintPlaylistTag(playlist);
+            Console.WriteLine(" Next matches in this playlist won't have this problem! Keep playing :)\n");
 
             System.Threading.Thread.Sleep(1000);
 
-            Console.WriteLine("RESUMING THE LIVE TRACKING. DO NOT CLOSE THIS WINDOW!");
+            Console.WriteLine("Resuming live tracking. Do not close this window!");
             System.Threading.Thread.Sleep(100);
-            Console.WriteLine("...\n");
         }
 
         
         static void PrintMmrWelcomeScreen()
         {
 
-            Console.WriteLine("ACTIVE PLAYLISTS:\n");
-            System.Threading.Thread.Sleep(200);
+            var Playlists = new List<Playlist>();
 
             foreach (var playlist in statsPerPlaylist.Keys)
             {
-                // Order of stats in list for each playlist: 1. mmr , 2. tier, 3. division, 4. matchesPlayed
-
-                Console.WriteLine(MapPlaylistName(int.Parse(playlist)) + "  MMR: " + CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture)) + " ( " + MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])) + " )  Matches played: " + (statsPerPlaylist[playlist])[3]);
-                System.Threading.Thread.Sleep(100);
+                Playlists.Add(new Playlist { Name = MapPlaylistName(int.Parse(playlist)), MMR = CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture)) , RankName = MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])) , MatchesPlayed = int.Parse((statsPerPlaylist[playlist])[3]) });
             }
+
+            Console.Write(" Done!\n\n");
+            Console.WriteLine("     ACTIVE PLAYLISTS THIS SEASON:\n");
+            System.Threading.Thread.Sleep(200);
+            Console.Write(Playlists.ToMarkdownTable().WithHeaders("Playlist", "MMR", "Rank name", "Matches played"));
+
         }
         
         public static int CalculateRescaledMmr(decimal mmr)
         {
             int rescaledMmr = Convert.ToInt32(Math.Round(((20*mmr) + 100), 0));
             return rescaledMmr;
-        }
-
-        public static void IsRocketLeagueForLogging(string filePath)
-        {
-            var initialFileSize = new FileInfo(filePath).Length;
-            var lastReadLength = initialFileSize - 1024;
-            if (lastReadLength < 0) lastReadLength = 0;
-
-            while (true)
-            {
-                try
-                {
-                    var fileSize = new FileInfo(filePath).Length;
-                    if (fileSize > lastReadLength)
-                    {
-                        using (var fs = new FileStream(filePath, System.IO.FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                        {
-                            fs.Seek(lastReadLength, SeekOrigin.Begin);
-                            var buffer = new byte[1024];
-
-                            while (true)
-                            {
-                                var bytesRead = fs.Read(buffer, 0, buffer.Length);
-                                lastReadLength += bytesRead;
-
-                                if (bytesRead == 0)
-                                    break;
-
-                                var text = ASCIIEncoding.ASCII.GetString(buffer, 0, bytesRead);
-
-                                Console.Write(text);
-                            }
-                        }
-                    }
-                }
-                catch { }
-
-                System.Threading.Thread.Sleep(1000);
-            }
         }
 
         public static string MapPlaylistName(int playlist)
