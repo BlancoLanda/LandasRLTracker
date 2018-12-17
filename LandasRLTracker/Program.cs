@@ -27,7 +27,7 @@ namespace LandasRLTracker
         public static int sessionTotalMmrRatio;
         public static SortedDictionary<string, List<string>> statsPerPlaylist = new SortedDictionary<string, List<string>>();
         public static List<string> initialPlaylists = new List<string>();
-        public static int dotCounter = 0;
+
 
         static void Main(string[] args)
         {
@@ -59,10 +59,11 @@ namespace LandasRLTracker
                 System.Threading.Thread.Sleep(1000);
                 steamId = SetSteamId();
                 steamNickname = SetNicknameFromId(steamId);
-                Process[] pname = Process.GetProcessesByName("RocketLeague");
-                if (pname.Length == 0)
+                Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
+                if (RLProcess.Length == 0)
                 {
-                    Console.Error.WriteLine("[ERROR] Rocket League process is NOT running. Please, open Rocket League and try again.");
+                    PrintErrorTag();
+                    Console.Error.WriteLine(" Rocket League process is NOT running. Please, open Rocket League and try again.");
                     System.Threading.Thread.Sleep(5000);
                     Environment.Exit(1);
                 }
@@ -80,12 +81,14 @@ namespace LandasRLTracker
 
                 Console.WriteLine("\nStarted live tracking. Do not close this window!");
                 System.Threading.Thread.Sleep(100);
+                Console.WriteLine("...");
 
                 // Initial process finish. Now it's time to start listening to new updates...
 
             } else
             {
-                Console.Error.WriteLine("[ERROR] No Rocket League logs found in your PC. Do you have the game installed? Exiting the program...");
+                PrintErrorTag();
+                Console.Error.WriteLine(" No Rocket League logs found in your PC. Do you have the game installed? Exiting the program...");
                 System.Threading.Thread.Sleep(5000);
                 Environment.Exit(1);
             }
@@ -134,7 +137,8 @@ namespace LandasRLTracker
             }
             else
             {
-                Console.Error.WriteLine("[ERROR] No Rocket League logs found in your PC. Do you have the game installed? Exiting the program...");
+                PrintErrorTag();
+                Console.Error.WriteLine(" No Rocket League logs found in your PC. Do you have the game installed? Exiting the program...");
                 System.Threading.Thread.Sleep(5000);
                 Environment.Exit(1);
             }
@@ -336,6 +340,7 @@ namespace LandasRLTracker
 
         static void StartLiveTracking()
         {
+
             var initialFileSize = new FileInfo(RLLogPath).Length;
             var lastReadLength = initialFileSize - 1024;
             if (lastReadLength < 0) lastReadLength = 0;
@@ -354,6 +359,7 @@ namespace LandasRLTracker
 
                             while (true)
                             {
+
                                 var bytesRead = fs.Read(buffer, 0, buffer.Length);
                                 lastReadLength += bytesRead;
 
@@ -564,18 +570,21 @@ namespace LandasRLTracker
                 catch { }
 
                 System.Threading.Thread.Sleep(1000);
-
-                if(dotCounter < 3)
+                Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
+                if (RLProcess.Length == 0)
                 {
-                    Console.Write(".");
-                    dotCounter++;
-                } else
-                {
-                    dotCounter = 0;
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                    Console.Write(".");
-                    dotCounter++;
+                    Console.WriteLine("Rocket League process has been closed. Waiting for it to be opened to keep getting data...");
+                    while(RLProcess.Length == 0)
+                    {
+                        // Do nothing, just wait...
+                        RLProcess = Process.GetProcessesByName("RocketLeague");
+                    }
+                    Console.WriteLine("Rocket League process is back up. Resuming live tracking. Do not close this window!");
+                    Console.WriteLine("...");
+                    System.Threading.Thread.Sleep(20000);
+                    initialFileSize = new FileInfo(RLLogPath).Length;
+                    lastReadLength = initialFileSize - 1024;
+                    if (lastReadLength < 0) lastReadLength = 0;
                 }
             }
         }
@@ -689,13 +698,11 @@ namespace LandasRLTracker
         static void AnnounceUpdate(string playlist, List<string> stats, int mmrWonOrLost, string tierChange, string divisionChange)
         {
             Console.WriteLine("\n");
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("[{0}]", DateTime.Now);
             Console.ResetColor();
             Console.Write(" New UPDATE of your MMR stats detected! Playlist: ");
-            Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(MapPlaylistName(int.Parse(playlist)));
             Console.ResetColor();
             Console.WriteLine("\n");
@@ -751,12 +758,12 @@ namespace LandasRLTracker
 
             Console.WriteLine("Resuming live tracking. Do not close this window!");
             System.Threading.Thread.Sleep(100);
+            Console.WriteLine("...");
         }
 
         static void PrintPlaylistTag(string playlist)
         {
-            Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("[" + MapPlaylistName(int.Parse(playlist)) + "]");
             Console.ResetColor();
         }
@@ -771,17 +778,22 @@ namespace LandasRLTracker
 
         static void PrintGlobalTag()
         {
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("[GLOBAL]");
             Console.ResetColor();
         }
 
         static void PrintInfoTag()
         {
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("[INFO]");
+            Console.ResetColor();
+        }
+
+        static void PrintErrorTag()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("[ERROR]");
             Console.ResetColor();
         }
 
