@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Octokit;
+using Newtonsoft.Json.Linq;
 
 namespace LandasRLTracker
 {
@@ -28,10 +29,8 @@ namespace LandasRLTracker
 
         static void Main(string[] args)
         {
-
             Init();
             StartLiveTracking();
-
         }
 
         static void Init()
@@ -585,21 +584,46 @@ namespace LandasRLTracker
             return name;
         }
 
-        static string GetVersion()
+        static string GetLatestVersion()
         {
+            /*
             var client = new GitHubClient(new ProductHeaderValue("LandasRLTracker"));
             var releases = client.Repository.Release.GetAll("BlancoLanda", "LandasRLTracker").Result;
             var latestTagName = releases[0].TagName;
             return latestTagName;
+            */
+
+            const string GITHUB_API = "https://api.github.com/repos/BlancoLanda/LandasRLTracker/releases";
+            WebClient webClient = new WebClient();
+            webClient.Headers.Add("User-Agent", "Unity web player");
+            Uri uri = new Uri(GITHUB_API);
+            string releases = webClient.DownloadString(uri);
+            JArray a = JArray.Parse(releases);
+            string tagName = "";
+            foreach (JObject content in a.Children<JObject>())
+            {
+                foreach (JProperty prop in content.Properties())
+                {
+                    string name = prop.Name.ToString();
+                    if(name.Equals("tag_name"))
+                    {
+                       tagName = prop.Value.ToString();
+                       return tagName;
+                    }
+                }
+            }
+            return tagName;
         }
 
         static void CheckUpdates()
         {
-            if(!GetVersion().Equals(version))
+            
+            if(!GetLatestVersion().Equals(version))
             {
-                Console.WriteLine("[INFO] Version outdated! This version: {0}, New version: {1}", version, GetVersion());
+                Console.WriteLine("[INFO] Version outdated! This version: {0}, New version: {1}", version, GetLatestVersion());
                 Console.WriteLine(@"[INFO] Download latest version at https://github.com/BlancoLanda/LandasRLTracker for better functionality!");
             }
+            
         }
 
         // Method that creates files with all the stats. It allow streamers to have live updates of their RL stats on screen.
@@ -707,8 +731,8 @@ namespace LandasRLTracker
             System.Threading.Thread.Sleep(100);
             Console.WriteLine("...\n");
         }
-    
 
+        
         static void PrintMmrWelcomeScreen()
         {
 
@@ -723,7 +747,7 @@ namespace LandasRLTracker
                 System.Threading.Thread.Sleep(100);
             }
         }
-
+        
         public static int CalculateRescaledMmr(decimal mmr)
         {
             int rescaledMmr = Convert.ToInt32(Math.Round(((20*mmr) + 100), 0));
