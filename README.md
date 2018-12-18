@@ -15,10 +15,10 @@ When using it, don't close the console until you finish your sessions. It is res
 
 Landa's RL Tracker displays the following information inside a console:
 - Initially, a list of the playlists where you are have an MMR number assigned, with the following information for each playlist:
-  * Playlist name (1s, 2s, 3s, ...)
-  * MMR
-  * Rank name and division for each playlist
-  * Total games played
+  * Playlist name (1s, 2s, 3s, ...).
+  * MMR.
+  * Rank name and division for each playlist.
+  * Total games played.
   
 ![Image](https://i.imgur.com/femzy6F.png)
 
