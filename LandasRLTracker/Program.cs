@@ -157,7 +157,7 @@ namespace LandasRLTracker
 
                         // Logs are not printed line by line. It's printed by blocks of bytes. It can happen that an original line is printed in two different lines. In that case, unify both lines.
 
-                        Regex regex = new Regex(@"^\[[0-9]{4}[\.][0-9][0-9]\]");
+                        Regex regex = new Regex(@"^\[[0-9]*[\.][0-9][0-9]\]");
                         Match match = regex.Match(line);
                         if (!match.Success)
                         {
@@ -204,7 +204,7 @@ namespace LandasRLTracker
                         while ((line = sr.ReadLine()) != null)
                         {
 
-                            Regex regex = new Regex(@"^\[[0-9]{4}[\.][0-9][0-9]\]");
+                            Regex regex = new Regex(@"^\[[0-9]*[\.][0-9][0-9]\]");
                             Match match = regex.Match(line);
                             if (!match.Success)
                             {
@@ -230,7 +230,7 @@ namespace LandasRLTracker
                         while ((line = sr.ReadLine()) != null)
                         {
 
-                            Regex regex = new Regex(@"^\[[0-9]{4}[\.][0-9][0-9]\]");
+                            Regex regex = new Regex(@"^\[[0-9]*[\.][0-9][0-9]\]");
                             Match match = regex.Match(line);
                             if (!match.Success)
                             {
@@ -373,7 +373,7 @@ namespace LandasRLTracker
                                     string line;
                                     while ((line = sr.ReadLine()) != null)
                                     {
-                                        Regex regex = new Regex(@"^\[[0-9]{4}[\.][0-9][0-9]\]");
+                                        Regex regex = new Regex(@"^\[[0-9]*[\.][0-9][0-9]\]");
                                         Match match = regex.Match(line);
                                         if (!match.Success)
                                         {
