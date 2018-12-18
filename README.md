@@ -16,18 +16,19 @@ When using it, don't close the console until you finish your sessions. It is res
 Landa's RL Tracker displays the following information inside a console:
 - Initially, a list of the playlists where you are have an MMR number assigned, with the following information for each playlist:
   * Playlist name (1s, 2s, 3s, ...)
-  * MMR number (and rank name + division associated)
+  * MMR
+  * Rank name and division for each playlist
   * Total games played
   
 ![Image](https://i.imgur.com/femzy6F.png)
 
 - When a match from any playlist is determined, it updates with the following information:
   * MMR lost/won in that played match.
+  * Rank up/down and tier up/down notifications.  
   * Updated MMR (and rank name + division associated) in that playlist.
   * MMR ratio of the session for the current playlist.
-  * Total MMR ratio of the session including all playlists.
-  * Rank up/down and tier up/down notifications.
   * Total games played and W/L ratio of the session for the current playlist.
+  * Total MMR ratio of the session including all playlists.
   * Total games played and W/L of the session including all playlists.
   
 ![Image](https://i.imgur.com/2gTnvYq.png)
