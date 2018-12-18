@@ -57,11 +57,13 @@ Head to the [releases page](https://github.com/BlancoLanda/LandasRLTracker/relea
 
 ## Known issues
 
-Actually, reading MMR changes through RL logs is not perfect. There are two cases where likely the tracker won't work:
+Actually, reading MMR changes through RL logs is not perfect. There are two cases where likely won't be instant (or even worse: won't work):
 1. If one team surrenders, and you leave BEFORE the winner announcement (i.e. forfeiting during a goal replay and leaving before the replay end).
 2. When a goal is scored in minute 00:00 and you leave before the winner announcement.
-That's because RL logs wins and MMR changes when a winner is announced. If you leave a match before that, there are high chances that it won't be logged.
-I'll try to look for some workaround, but at the moment this is the situation!
+
+That happens because RL logs 'wins & MMR data' changes when a winner is announced. If you leave a match before that, there are high chances that it won't be logged.
+
+Normally, in these cases, stats won't be instantly updated just after the match, and they get updated in the start OF THE NEXT MATCH. Also, there's a slight chance that they simply won't get updated, like that match never existed. That's why I recommend waiting for all matches to finish. I can't do anything about this, it's the way Rocket League logs the data.
 
 ## Need help?
 
