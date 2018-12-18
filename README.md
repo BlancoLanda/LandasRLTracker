@@ -2,11 +2,13 @@
 
 ## About
 
-Landa's RL Tracker is a tool written in C# that allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist. Only Steam platform running in a Windows machine is supported.
+Landa's RL Tracker is a tool written in C# that allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist. Only Steam platform running in a Windows 8+ machine is supported.
 
 Information is obtained using Rocket League local logfiles (Psyonix API is closed from public access). No third party queries are made. It checks the logs every second and parses all the MMR information it contains.
 
 ## Usage
+
+This program requires .NET Framework v4.6.1+, you can get latest version at: https://dotnet.microsoft.com/download/dotnet-framework-runtime
 
 The only requirement is having your Rocket League client opened BEFORE using Landa's RL Tracker.
 When using it, don't close the console until you finish your sessions. It is responsible of monitoring updates.
@@ -15,17 +17,23 @@ When using it, don't close the console until you finish your sessions. It is res
 
 Landa's RL Tracker displays the following information inside a console:
 - Initially, a list of the playlists where you are have an MMR number assigned, with the following information for each playlist:
-  * Playlist name (1s, 2s, 3s, ...)
-  * MMR number (and rank name + division associated)
-  * Total games played
+  * Playlist name (1s, 2s, 3s, ...).
+  * MMR.
+  * Rank name and division for each playlist.
+  * Total games played.
+  
+![Image](https://i.imgur.com/femzy6F.png)
 
 - When a match from any playlist is determined, it updates with the following information:
+  * MMR lost/won in that played match.
+  * Rank up/down and tier up/down notifications.  
   * Updated MMR (and rank name + division associated) in that playlist.
   * MMR ratio of the session for the current playlist.
-  * Total MMR ratio of the session including all playlists.
-  * Rank up/down and tier up/down notifications.
   * Total games played and W/L ratio of the session for the current playlist.
+  * Total MMR ratio of the session including all playlists.
   * Total games played and W/L of the session including all playlists.
+  
+![Image](https://i.imgur.com/2gTnvYq.png)
   
 ## Tool for streamers
   
@@ -46,6 +54,16 @@ Landa's RL Tracker displays the following information inside a console:
 ## Download
 
 Head to the [releases page](https://github.com/BlancoLanda/LandasRLTracker/releases) for the executable download link.
+
+## Known issues
+
+Actually, reading MMR changes through RL logs is not perfect. There are two cases where likely won't be instant (or even worse: won't work):
+1. If one team surrenders, and you leave BEFORE the winner announcement (i.e. forfeiting during a goal replay and leaving before the replay end).
+2. When a goal is scored in minute 00:00 and you leave before the winner announcement.
+
+That happens because RL throw wins & MMR data updates when a winner is announced. If you leave a match before that, there are high chances that it won't be logged.
+
+Normally, in these cases, stats won't be instantly updated just after the match, and they get updated in the next log update, normally  in the start of the next match. Also, there's a slight chance that they simply won't get updated, like that match never existed. That's why I recommend waiting for all matches to finish. I can't do anything about this, it's the way Rocket League logs the data.
 
 ## Need help?
 
