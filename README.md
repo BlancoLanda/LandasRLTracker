@@ -22,7 +22,7 @@ Landa's RL Tracker displays the following information inside a console:
 ![Image](https://i.imgur.com/femzy6F.png)
 
 - When a match from any playlist is determined, it updates with the following information:
-  * MMR lost/win in the match.
+  * MMR lost/won in that played match.
   * Updated MMR (and rank name + division associated) in that playlist.
   * MMR ratio of the session for the current playlist.
   * Total MMR ratio of the session including all playlists.
