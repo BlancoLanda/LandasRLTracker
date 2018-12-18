@@ -18,6 +18,8 @@ Landa's RL Tracker displays the following information inside a console:
   * Playlist name (1s, 2s, 3s, ...)
   * MMR number (and rank name + division associated)
   * Total games played
+  
+![Image](https://i.imgur.com/femzy6F.png)
 
 - When a match from any playlist is determined, it updates with the following information:
   * Updated MMR (and rank name + division associated) in that playlist.
@@ -26,6 +28,8 @@ Landa's RL Tracker displays the following information inside a console:
   * Rank up/down and tier up/down notifications.
   * Total games played and W/L ratio of the session for the current playlist.
   * Total games played and W/L of the session including all playlists.
+  
+![Image](https://i.imgur.com/2gTnvYq.png)
   
 ## Tool for streamers
   
