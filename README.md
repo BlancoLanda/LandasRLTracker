@@ -47,6 +47,14 @@ Landa's RL Tracker displays the following information inside a console:
 
 Head to the [releases page](https://github.com/BlancoLanda/LandasRLTracker/releases) for the executable download link.
 
+## Known issues
+
+Actually, reading MMR changes through RL logs is not perfect. There are two cases where likely the tracker won't work:
+1. If one team surrenders, and you leave BEFORE the winner announcement (i.e. forfeiting during a goal replay and leaving before the replay end).
+2. When a goal is scored in minute 00:00 and you leave before the winner announcement.
+That's because RL logs wins and MMR changes when a winner is announced. If you leave a match before that, there are high chances that it won't be logged.
+I'll try to look for some workaround, but at the moment this is the situation!
+
 ## Need help?
 
 If you need any help or want to contact me for anything related with this project, you can reach me at [Steam](https://steamcommunity.com/id/blancolanda/) or [Twitter](https://twitter.com/BlancoLanda)!
