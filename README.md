@@ -8,6 +8,8 @@ Information is obtained using Rocket League local logfiles (Psyonix API is close
 
 ## Usage
 
+This program requires .NET Framework v4.6.1+, you can get latest version at: https://dotnet.microsoft.com/download/dotnet-framework-runtime
+
 The only requirement is having your Rocket League client opened BEFORE using Landa's RL Tracker.
 When using it, don't close the console until you finish your sessions. It is responsible of monitoring updates.
 
