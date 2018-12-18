@@ -17,7 +17,7 @@ namespace LandasRLTracker
     {
         readonly static string RLLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\Launch.log");
         readonly static string streamerKitFolder = @"StreamerKit\";
-        readonly static string version = "v1.2.1";
+        readonly static string version = "v1.2.2";
         public static string steamId;
         public static string steamNickname;
         public static string storedLine;
@@ -255,7 +255,7 @@ namespace LandasRLTracker
                                 string division = "9";
                                 string matchesPlayed = "0";
 
-                                regex = new Regex(@"MMR[^\w][1-9][0-9]*[\.][0-9]{6}");
+                                regex = new Regex(@"MMR[^\w][\-]?[0-9][0-9]*[\.][0-9]{6}");
                                 match = regex.Match(line);
                                 if (match.Success)
                                 {
@@ -265,7 +265,7 @@ namespace LandasRLTracker
                                 if (line.Contains("MatchesPlayed="))
                                 {
                                     // If line contains MMR but not matches played, neither division/tier. It means the player didn't play this playlist in the current season (O games).
-                                    regex = new Regex(@"MatchesPlayed[^\w][1-9][0-9]*[\,]");
+                                    regex = new Regex(@"MatchesPlayed[^\w][0-9][0-9]*[\,]");
                                     match = regex.Match(line);
                                     if (match.Success)
                                     {
@@ -401,7 +401,7 @@ namespace LandasRLTracker
 
                                             if (int.Parse(playlist) != 0)
                                             {
-                                                regex = new Regex(@"MMR[^\w][1-9][0-9]*[\.][0-9]{6}");
+                                                regex = new Regex(@"MMR[^\w][\-]?[0-9][0-9]*[\.][0-9]{6}");
                                                 match = regex.Match(line);
                                                 if (match.Success)
                                                 {
@@ -411,7 +411,7 @@ namespace LandasRLTracker
                                                 if (line.Contains("MatchesPlayed="))
                                                 {
                                                     // If line contains MMR but not matches played, neither division/tier. It means the player didn't play this playlist in the current season (O games).
-                                                    regex = new Regex(@"MatchesPlayed[^\w][1-9][0-9]*[\,]");
+                                                    regex = new Regex(@"MatchesPlayed[^\w][0-9][0-9]*[\,]");
                                                     match = regex.Match(line);
                                                     if (match.Success)
                                                     {
