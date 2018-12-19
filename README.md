@@ -65,6 +65,10 @@ That happens because RL throw wins & MMR data updates when a winner is announced
 
 Normally, in these cases, stats won't be instantly updated just after the match, and they get updated in the next log update, normally  in the start of the next match. Also, there's a slight chance that they simply won't get updated, like that match never existed. That's why I recommend waiting for all matches to finish. I can't do anything about this, it's the way Rocket League logs the data.
 
+## Is it legal and safe?
+
+This tracker is safe, you will never get a Rocket League crash from this, because it does NEVER interact with Rocket League client. It only gets live information from Rocket League txt logs with 'Read only' tag. Then, in the same way, its use is totally legal.
+
 ## Need help?
 
 If you need any help or want to contact me for anything related with this project, you can reach me at [Steam](https://steamcommunity.com/id/blancolanda/) or [Twitter](https://twitter.com/BlancoLanda)!
