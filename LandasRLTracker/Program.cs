@@ -601,9 +601,20 @@ namespace LandasRLTracker
 
         static string SetNicknameFromId(String steamId)
         {
+            string name = "";
             var steamUserApi = new XmlDocument();
             steamUserApi.Load(@"https://steamcommunity.com/profiles/" + steamId + "/?xml=1");
-            string name = steamUserApi.SelectSingleNode("profile/steamID").FirstChild.Value;
+            try
+            {
+                name = steamUserApi.SelectSingleNode("profile/steamID").FirstChild.Value;
+            }
+            catch (NullReferenceException ex)
+            {
+                PrintErrorTag();
+                Console.Error.WriteLine(" Steam is opened but not logged in. Log in, open Rocket League and try again! Exiting program...");
+                System.Threading.Thread.Sleep(5000);
+                Environment.Exit(1);
+            }
 
             return name;
         }
@@ -613,7 +624,7 @@ namespace LandasRLTracker
 
             const string GITHUB_API = "https://api.github.com/repos/BlancoLanda/LandasRLTracker/releases";
             WebClient webClient = new WebClient();
-            webClient.Headers.Add("User-Agent", "Unity web player");
+            webClient.Headers.Add("User-Agent", "Landas RL Tracker");
             Uri uri = new Uri(GITHUB_API);
             string releases = webClient.DownloadString(uri);
             JArray a = JArray.Parse(releases);
@@ -790,7 +801,7 @@ namespace LandasRLTracker
             Console.ResetColor();
         }
 
-        static void PrintErrorTag()
+        public static void PrintErrorTag()
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("[ERROR]");

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using LandasRLTracker;
+using Microsoft.Win32;
 using System;
 using System.Runtime.InteropServices;
 /// <summary>
@@ -165,7 +166,8 @@ public class SteamBridge : IDisposable
 
         if (steamUserAddress == IntPtr.Zero)
         {
-            Console.Error.WriteLine("Couldn't get Steam info. Maybe you've got it closed? Exiting program...");
+            Program.PrintErrorTag();
+            Console.Error.WriteLine(" Couldn't get Steam info. Maybe you've got it closed? Exiting program...");
             System.Threading.Thread.Sleep(5000);
             Environment.Exit(1);
         }
