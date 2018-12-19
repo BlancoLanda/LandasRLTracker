@@ -61,9 +61,9 @@ Actually, reading MMR changes through RL logs is not perfect. There are two case
 1. If one team surrenders, and you leave BEFORE the winner announcement (i.e. forfeiting during a goal replay and leaving before the replay end).
 2. When a goal is scored in minute 00:00 and you leave before the winner announcement.
 
-That happens because RL throw wins & MMR data updates when a winner is announced. If you leave a match before that, there are high chances that it won't be logged.
+That happens because RL triggers win/lose & MMR data updates when a winner is announced. If you leave a match before that, there are high chances that it won't be logged.
 
-Normally, in these cases, stats won't be instantly updated just after the match, and they get updated in the next log update, normally  in the start of the next match. Also, there's a slight chance that they simply won't get updated, like that match never existed. That's why I recommend waiting for all matches to finish. I can't do anything about this, it's the way Rocket League logs the data.
+Normally, in these cases, stats won't be instantly updated just after the match, and **they get updated in the next log update, normally in the start of the next match.** Also, there's a slight chance that they simply won't get updated, like that match never existed. That's why I recommend waiting for all matches to finish. I can't do anything about this, it's the way Rocket League logs the data.
 
 ## Is it legal and safe?
 
