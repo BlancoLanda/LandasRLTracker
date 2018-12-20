@@ -55,7 +55,9 @@ namespace LandasRLTracker
                 CheckUpdates();
                 System.Threading.Thread.Sleep(100);
                 PrintInfoTag();
-                Console.WriteLine(" Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!\n");
+                Console.WriteLine(" Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!");
+                PrintInfoTag();
+                Console.WriteLine(" Whenever you want to reset your stats, simply go to this window and press 'r' key. A confirmation message will be printed.\n");
                 System.Threading.Thread.Sleep(1000);
                 Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
                 if (RLProcess.Length == 0)
