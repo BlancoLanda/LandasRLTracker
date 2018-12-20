@@ -646,7 +646,7 @@ namespace LandasRLTracker
             {
                 name = steamUserApi.SelectSingleNode("profile/steamID").FirstChild.Value;
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 PrintErrorTag();
                 Console.Error.WriteLine(" Steam is opened but not logged in. Log in, open Rocket League and try again! Exiting program...");
