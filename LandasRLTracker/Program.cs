@@ -17,7 +17,7 @@ namespace LandasRLTracker
     {
         readonly static string RLLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\Launch.log");
         readonly static string streamerKitFolder = @"StreamerKit\";
-        readonly static string version = "v1.2.2";
+        readonly static string version = "v1.3";
         public static string steamId;
         public static string steamNickname;
         public static string storedLine;
