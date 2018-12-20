@@ -2,7 +2,7 @@
 
 ## About
 
-Landa's RL Tracker is a command line tool written in C# that allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist. Only Steam platform running in a Windows 8+ machine is supported.
+Landa's RL Tracker is a command-line tool written in C# that allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist. Only Steam platform running in a Windows 8+ machine is supported.
 
 Information is obtained using Rocket League local logfiles (Psyonix API is closed from public access). No third party queries are made. It checks the logs every second and parses all the MMR information it contains.
 
@@ -10,8 +10,9 @@ Information is obtained using Rocket League local logfiles (Psyonix API is close
 
 This program requires .NET Framework v4.6.1+, you can get latest version at: https://dotnet.microsoft.com/download/dotnet-framework-runtime
 
-The only requirement is having your Rocket League client opened BEFORE using Landa's RL Tracker.
-When using it, don't close the console until you finish your sessions. It is responsible of monitoring updates.
+The only requirement is having the tracker opened while playing Rocket League.
+
+If you want to reset the stats without exiting the program, you can do it by pressing 'r' key.
 
 ## Information displayed
 
