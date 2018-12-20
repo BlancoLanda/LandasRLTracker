@@ -608,7 +608,7 @@ namespace LandasRLTracker
 
                 if (key == ConsoleKey.R)
                 {
-                    Console.WriteLine("You pressed de R key! All stats are reset to 0. New session starting now!");
+                    Console.WriteLine("You pressed the R key! All stats are reset to 0. New session starting now!");
                     Console.WriteLine("...");
                     foreach (var playlist in statsPerPlaylist.Keys)
                     {
