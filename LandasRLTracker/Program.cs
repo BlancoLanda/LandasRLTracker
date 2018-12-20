@@ -59,16 +59,21 @@ namespace LandasRLTracker
                 System.Threading.Thread.Sleep(1000);
                 steamId = SetSteamId();
                 steamNickname = SetNicknameFromId(steamId);
+                Console.WriteLine("Steam/RL nickname detected:      {0}\n", steamNickname);
+                System.Threading.Thread.Sleep(1000);
                 Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
                 if (RLProcess.Length == 0)
                 {
-                    PrintErrorTag();
-                    Console.Error.WriteLine(" Rocket League process is NOT running. Please, open Rocket League and try again.");
-                    System.Threading.Thread.Sleep(5000);
-                    Environment.Exit(1);
+                    Console.WriteLine("Rocket League process is not opened. Waiting for it to be opened to start getting data...");
+                    while (RLProcess.Length == 0)
+                    {
+                        // Do nothing, just wait...
+                        RLProcess = Process.GetProcessesByName("RocketLeague");
+                    }
+                    Console.WriteLine("Rocket League process is running now! Resuming live tracking. Do not close this window!");
+                    Console.WriteLine("...");
+                    System.Threading.Thread.Sleep(1000);
                 }
-                Console.WriteLine("Steam/RL nickname detected:      {0}\n", steamNickname);
-                System.Threading.Thread.Sleep(1000);
                 Console.Write("Getting MMR data of your account...");
                 System.Threading.Thread.Sleep(1000);
 
