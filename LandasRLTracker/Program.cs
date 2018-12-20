@@ -350,128 +350,211 @@ namespace LandasRLTracker
             var lastReadLength = initialFileSize - 1024;
             if (lastReadLength < 0) lastReadLength = 0;
 
+            ConsoleKey key;
+
             while (true)
             {
-                try
+                while (!Console.KeyAvailable)
                 {
-                    var fileSize = new FileInfo(RLLogPath).Length;
-                    if (fileSize > lastReadLength)
+                    try
                     {
-                        using (var fs = new FileStream(RLLogPath, System.IO.FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        var fileSize = new FileInfo(RLLogPath).Length;
+                        if (fileSize > lastReadLength)
                         {
-                            fs.Seek(lastReadLength, SeekOrigin.Begin);
-                            var buffer = new byte[1024];
-
-                            while (true)
+                            using (var fs = new FileStream(RLLogPath, System.IO.FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                             {
+                                fs.Seek(lastReadLength, SeekOrigin.Begin);
+                                var buffer = new byte[1024];
 
-                                var bytesRead = fs.Read(buffer, 0, buffer.Length);
-                                lastReadLength += bytesRead;
-
-                                if (bytesRead == 0)
-                                    break;
-
-                                var text = ASCIIEncoding.ASCII.GetString(buffer, 0, bytesRead);
-
-                                using (StringReader sr = new StringReader(text))
+                                while (true)
                                 {
-                                    string line;
-                                    while ((line = sr.ReadLine()) != null)
+
+                                    var bytesRead = fs.Read(buffer, 0, buffer.Length);
+                                    lastReadLength += bytesRead;
+
+                                    if (bytesRead == 0)
+                                        break;
+
+                                    var text = ASCIIEncoding.ASCII.GetString(buffer, 0, bytesRead);
+
+                                    using (StringReader sr = new StringReader(text))
                                     {
-                                        Regex regex = new Regex(@"^\[[0-9]*[\.][0-9][0-9]\]");
-                                        Match match = regex.Match(line);
-                                        if (!match.Success)
+                                        string line;
+                                        while ((line = sr.ReadLine()) != null)
                                         {
-                                            line = storedLine + line;
-                                        }
-
-                                        storedLine = line;
-
-                                        if (line.Contains("OnlineGameSkill_X::") && line.Contains("Playlist=") && line.Contains("Uid=" + steamId) && line.Contains("MMR=") && line.Contains("Mu="))
-                                        {
-                                            // This line contains MMR info about a playlist
-                                            string playlist = "0";
-                                            string mmr = "0";
-                                            string tier = "0";
-                                            string division = "9";
-                                            string matchesPlayed = "0";
-
-                                            regex = new Regex(@"Playlist[^\w]\d{1,2}[\ ]");
-                                            match = regex.Match(line);
-                                            if (match.Success)
+                                            Regex regex = new Regex(@"^\[[0-9]*[\.][0-9][0-9]\]");
+                                            Match match = regex.Match(line);
+                                            if (!match.Success)
                                             {
-                                                String value = match.Value;
-                                                playlist = value.Replace("Playlist=", "");
+                                                line = storedLine + line;
                                             }
 
-                                            if (int.Parse(playlist) != 0)
+                                            storedLine = line;
+
+                                            if (line.Contains("OnlineGameSkill_X::") && line.Contains("Playlist=") && line.Contains("Uid=" + steamId) && line.Contains("MMR=") && line.Contains("Mu="))
                                             {
-                                                regex = new Regex(@"MMR[^\w][\-]?[0-9][0-9]*[\.][0-9]{6}");
+                                                // This line contains MMR info about a playlist
+                                                string playlist = "0";
+                                                string mmr = "0";
+                                                string tier = "0";
+                                                string division = "9";
+                                                string matchesPlayed = "0";
+
+                                                regex = new Regex(@"Playlist[^\w]\d{1,2}[\ ]");
                                                 match = regex.Match(line);
                                                 if (match.Success)
                                                 {
                                                     String value = match.Value;
-                                                    mmr = value.Replace("MMR=", "");
+                                                    playlist = value.Replace("Playlist=", "");
                                                 }
-                                                if (line.Contains("MatchesPlayed="))
-                                                {
-                                                    // If line contains MMR but not matches played, neither division/tier. It means the player didn't play this playlist in the current season (O games).
-                                                    regex = new Regex(@"MatchesPlayed[^\w][0-9][0-9]*[\,]");
-                                                    match = regex.Match(line);
-                                                    if (match.Success)
-                                                    {
-                                                        String value = match.Value;
-                                                        matchesPlayed = new String(value.Where(Char.IsDigit).ToArray());
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    matchesPlayed = "0";
-                                                }
-                                                if (line.Contains("Tier="))
-                                                {
-                                                    regex = new Regex(@"Tier[^\w]\d{1,2}[\,]");
-                                                    match = regex.Match(line);
-                                                    if (match.Success)
-                                                    {
-                                                        String value = match.Value;
-                                                        tier = new String(value.Where(Char.IsDigit).ToArray());
-                                                    }
 
-                                                    if (line.Contains("Division="))
+                                                if (int.Parse(playlist) != 0)
+                                                {
+                                                    regex = new Regex(@"MMR[^\w][\-]?[0-9][0-9]*[\.][0-9]{6}");
+                                                    match = regex.Match(line);
+                                                    if (match.Success)
                                                     {
-                                                        division = line.Substring(line.LastIndexOf("Division=") + 9, 1);
+                                                        String value = match.Value;
+                                                        mmr = value.Replace("MMR=", "");
                                                     }
-                                                    else if (line.Contains("Tier=19"))
+                                                    if (line.Contains("MatchesPlayed="))
                                                     {
-                                                        tier = "19";
+                                                        // If line contains MMR but not matches played, neither division/tier. It means the player didn't play this playlist in the current season (O games).
+                                                        regex = new Regex(@"MatchesPlayed[^\w][0-9][0-9]*[\,]");
+                                                        match = regex.Match(line);
+                                                        if (match.Success)
+                                                        {
+                                                            String value = match.Value;
+                                                            matchesPlayed = new String(value.Where(Char.IsDigit).ToArray());
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        matchesPlayed = "0";
+                                                    }
+                                                    if (line.Contains("Tier="))
+                                                    {
+                                                        regex = new Regex(@"Tier[^\w]\d{1,2}[\,]");
+                                                        match = regex.Match(line);
+                                                        if (match.Success)
+                                                        {
+                                                            String value = match.Value;
+                                                            tier = new String(value.Where(Char.IsDigit).ToArray());
+                                                        }
+
+                                                        if (line.Contains("Division="))
+                                                        {
+                                                            division = line.Substring(line.LastIndexOf("Division=") + 9, 1);
+                                                        }
+                                                        else if (line.Contains("Tier=19"))
+                                                        {
+                                                            tier = "19";
+                                                            division = "9";
+                                                        }
+                                                        else
+                                                        {
+                                                            division = "0";
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        tier = "0";
                                                         division = "9";
                                                     }
-                                                    else
+                                                }
+
+                                                if (!statsPerPlaylist.ContainsKey(playlist))
+                                                {
+                                                    // If first time playing this playlist in this season, add it to the dictionary.
+
+                                                    if (int.TryParse(playlist, out int n))
                                                     {
-                                                        division = "0";
+                                                        int mmrInt = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture));
+                                                        string mmrRatio = "0";
+                                                        string playlistSessionWins = "0";
+                                                        string playlistSessionLoses = "0";
+
+                                                        List<string> stats = new List<string>
+                                                    {
+                                                        mmr,
+                                                        tier,
+                                                        division,
+                                                        matchesPlayed,
+                                                        mmrRatio,
+                                                        playlistSessionWins,
+                                                        playlistSessionLoses
+                                                    };
+
+                                                        statsPerPlaylist.Add(playlist, stats);
+                                                        AnnounceNewPlaylist(playlist, mmrInt);
+                                                        AppendStatsToFiles(playlist);
                                                     }
 
                                                 }
                                                 else
                                                 {
-                                                    tier = "0";
-                                                    division = "9";
-                                                }
-                                            }
+                                                    int numericMmr = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture));
+                                                    int numericPreviousMmr = CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture));
 
-                                            if (!statsPerPlaylist.ContainsKey(playlist))
-                                            {
-                                                // If first time playing this playlist in this season, add it to the dictionary.
+                                                    if (numericMmr != numericPreviousMmr)
+                                                    {
 
-                                                if(int.TryParse(playlist, out int n))
-                                                {
-                                                    int mmrInt = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture));
-                                                    string mmrRatio = "0";
-                                                    string playlistSessionWins = "0";
-                                                    string playlistSessionLoses = "0";
+                                                        // Changes in MMR in this playlist
+                                                        int mmrWonOrLost = numericMmr - numericPreviousMmr;
+                                                        string playlistSessionWins = statsPerPlaylist[playlist][5];
+                                                        string playlistSessionLoses = statsPerPlaylist[playlist][6];
+                                                        string mmrRatio = (int.Parse(statsPerPlaylist[playlist][4]) + mmrWonOrLost).ToString();
+                                                        sessionTotalMmrRatio = sessionTotalMmrRatio + mmrWonOrLost;
+                                                        sessionTotalGames++;
+                                                        if (mmrWonOrLost > 0)
+                                                        {
+                                                            // Match finished with a win.
+                                                            playlistSessionWins = (int.Parse(statsPerPlaylist[playlist][5]) + 1).ToString();
+                                                            sessionTotalWins++;
+                                                        }
+                                                        else
+                                                        {
+                                                            // Match finished with a lose.
+                                                            playlistSessionLoses = (int.Parse(statsPerPlaylist[playlist][6]) + 1).ToString();
+                                                            sessionTotalLoses++;
+                                                        }
 
-                                                    List<string> stats = new List<string>
+                                                        string tierChange = "no";
+                                                        string divisionChange = "no";
+                                                        int numericTier = int.Parse(tier);
+                                                        int numericPreviousTier = int.Parse(statsPerPlaylist[playlist][1]);
+                                                        int numericDivision = int.Parse(division);
+                                                        int numericPreviousDivision = int.Parse(statsPerPlaylist[playlist][2]);
+
+                                                        if (numericTier != numericPreviousTier)
+                                                        {
+                                                            if (numericTier > numericPreviousTier)
+                                                            {
+                                                                // Rank up
+                                                                tierChange = "up";
+                                                            }
+                                                            else
+                                                            {
+                                                                // Rank down
+                                                                tierChange = "down";
+                                                            }
+                                                        }
+                                                        else if (numericDivision != numericPreviousDivision)
+                                                        {
+                                                            if (numericDivision > numericPreviousDivision)
+                                                            {
+                                                                // Div up
+                                                                divisionChange = "up";
+                                                            }
+                                                            else
+                                                            {
+                                                                // Div down
+                                                                divisionChange = "down";
+                                                            }
+                                                        }
+
+                                                        List<string> stats = new List<string>
                                                     {
                                                         mmr,
                                                         tier,
@@ -482,118 +565,61 @@ namespace LandasRLTracker
                                                         playlistSessionLoses
                                                     };
 
-                                                    statsPerPlaylist.Add(playlist, stats);
-                                                    AnnounceNewPlaylist(playlist, mmrInt);
-                                                    AppendStatsToFiles(playlist);
+                                                        statsPerPlaylist[playlist] = stats;
+
+                                                        // Time to announce the update in console.
+                                                        AnnounceUpdate(playlist, stats, mmrWonOrLost, tierChange, divisionChange);
+                                                        AppendStatsToFiles(playlist);
+                                                    }
                                                 }
 
-                                            } else
-                                            {
-                                                int numericMmr = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture));
-                                                int numericPreviousMmr = CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture));
-
-                                                if (numericMmr != numericPreviousMmr)
-                                                {
-
-                                                    // Changes in MMR in this playlist
-                                                    int mmrWonOrLost = numericMmr - numericPreviousMmr;
-                                                    string playlistSessionWins = statsPerPlaylist[playlist][5];
-                                                    string playlistSessionLoses = statsPerPlaylist[playlist][6];
-                                                    string mmrRatio = (int.Parse(statsPerPlaylist[playlist][4]) + mmrWonOrLost).ToString();
-                                                    sessionTotalMmrRatio = sessionTotalMmrRatio + mmrWonOrLost;
-                                                    sessionTotalGames++;
-                                                    if (mmrWonOrLost > 0)
-                                                    {
-                                                        // Match finished with a win.
-                                                        playlistSessionWins = (int.Parse(statsPerPlaylist[playlist][5]) + 1).ToString();
-                                                        sessionTotalWins++;
-                                                    }
-                                                    else
-                                                    {
-                                                        // Match finished with a lose.
-                                                        playlistSessionLoses = (int.Parse(statsPerPlaylist[playlist][6]) + 1).ToString();
-                                                        sessionTotalLoses++;
-                                                    }
-
-                                                    string tierChange = "no";
-                                                    string divisionChange = "no";
-                                                    int numericTier = int.Parse(tier);
-                                                    int numericPreviousTier = int.Parse(statsPerPlaylist[playlist][1]);
-                                                    int numericDivision = int.Parse(division);
-                                                    int numericPreviousDivision = int.Parse(statsPerPlaylist[playlist][2]);
-
-                                                    if (numericTier != numericPreviousTier)
-                                                    {
-                                                        if (numericTier > numericPreviousTier)
-                                                        {
-                                                            // Rank up
-                                                            tierChange = "up";
-                                                        }
-                                                        else
-                                                        {
-                                                            // Rank down
-                                                            tierChange = "down";
-                                                        }
-                                                    }
-                                                    else if (numericDivision != numericPreviousDivision)
-                                                    {
-                                                        if (numericDivision > numericPreviousDivision)
-                                                        {
-                                                            // Div up
-                                                            divisionChange = "up";
-                                                        }
-                                                        else
-                                                        {
-                                                            // Div down
-                                                            divisionChange = "down";
-                                                        }
-                                                    }
-
-                                                    List<string> stats = new List<string>
-                                                    {
-                                                        mmr,
-                                                        tier,
-                                                        division,
-                                                        matchesPlayed,
-                                                        mmrRatio,
-                                                        playlistSessionWins,
-                                                        playlistSessionLoses
-                                                    };
-
-                                                    statsPerPlaylist[playlist] = stats;
-
-                                                    // Time to announce the update in console.
-                                                    AnnounceUpdate(playlist, stats, mmrWonOrLost, tierChange, divisionChange);
-                                                    AppendStatsToFiles(playlist);
-                                                }
                                             }
-
                                         }
                                     }
-                                }
 
+                                }
                             }
                         }
                     }
-                }
-                catch { }
+                    catch { }
 
-                System.Threading.Thread.Sleep(1000);
-                Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
-                if (RLProcess.Length == 0)
-                {
-                    Console.WriteLine("Rocket League process has been closed. Waiting for it to be opened to keep getting data...");
-                    while(RLProcess.Length == 0)
+                    System.Threading.Thread.Sleep(1000);
+                    Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
+                    if (RLProcess.Length == 0)
                     {
-                        // Do nothing, just wait...
-                        RLProcess = Process.GetProcessesByName("RocketLeague");
+                        Console.WriteLine("Rocket League process has been closed. Waiting for it to be opened to keep getting data...");
+                        while (RLProcess.Length == 0)
+                        {
+                            // Do nothing, just wait...
+                            RLProcess = Process.GetProcessesByName("RocketLeague");
+                        }
+                        Console.WriteLine("Rocket League process is back up. Resuming live tracking. Do not close this window!");
+                        Console.WriteLine("...");
+                        System.Threading.Thread.Sleep(20000);
+                        initialFileSize = new FileInfo(RLLogPath).Length;
+                        lastReadLength = initialFileSize - 1024;
+                        if (lastReadLength < 0) lastReadLength = 0;
                     }
-                    Console.WriteLine("Rocket League process is back up. Resuming live tracking. Do not close this window!");
+                }
+
+                key = Console.ReadKey(true).Key;
+
+                if (key == ConsoleKey.R)
+                {
+                    Console.WriteLine("You pressed de R key! All stats are reset to 0. New session starting now!");
                     Console.WriteLine("...");
-                    System.Threading.Thread.Sleep(20000);
-                    initialFileSize = new FileInfo(RLLogPath).Length;
-                    lastReadLength = initialFileSize - 1024;
-                    if (lastReadLength < 0) lastReadLength = 0;
+                    foreach (var playlist in statsPerPlaylist.Keys)
+                    {
+                        statsPerPlaylist[playlist][4] = "0";
+                        statsPerPlaylist[playlist][5] = "0";
+                        statsPerPlaylist[playlist][6] = "0";
+                    }
+
+                    sessionTotalGames = 0;
+                    sessionTotalLoses = 0;
+                    sessionTotalWins = 0;
+                    sessionTotalMmrRatio = 0;
+
                 }
             }
         }
@@ -842,6 +868,7 @@ namespace LandasRLTracker
 
             Console.WriteLine("Resuming live tracking. Do not close this window!");
             System.Threading.Thread.Sleep(100);
+            Console.WriteLine("...");
         }
 
         
