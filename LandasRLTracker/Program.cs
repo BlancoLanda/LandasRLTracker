@@ -57,10 +57,6 @@ namespace LandasRLTracker
                 PrintInfoTag();
                 Console.WriteLine(" Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!\n");
                 System.Threading.Thread.Sleep(1000);
-                steamId = SetSteamId();
-                steamNickname = SetNicknameFromId(steamId);
-                Console.WriteLine("Steam/RL nickname detected:      {0}\n", steamNickname);
-                System.Threading.Thread.Sleep(1000);
                 Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
                 if (RLProcess.Length == 0)
                 {
@@ -70,10 +66,14 @@ namespace LandasRLTracker
                         // Do nothing, just wait...
                         RLProcess = Process.GetProcessesByName("RocketLeague");
                     }
-                    Console.WriteLine("Rocket League process is running now! Resuming live tracking. Do not close this window!");
-                    Console.WriteLine("...");
+                    Console.WriteLine("Rocket League process is running now!\n");
                     System.Threading.Thread.Sleep(1000);
                 }
+
+                steamId = SetSteamId();
+                steamNickname = SetNicknameFromId(steamId);
+                Console.WriteLine("Steam/RL nickname detected:      {0}\n", steamNickname);
+
                 Console.Write("Getting MMR data of your account...");
                 System.Threading.Thread.Sleep(1000);
 
@@ -464,25 +464,29 @@ namespace LandasRLTracker
                                             {
                                                 // If first time playing this playlist in this season, add it to the dictionary.
 
-                                                int mmrInt = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture));
-                                                string mmrRatio = "0";
-                                                string playlistSessionWins = "0";
-                                                string playlistSessionLoses = "0";
-
-                                                List<string> stats = new List<string>
+                                                if(int.TryParse(playlist, out int n))
                                                 {
-                                                    mmr,
-                                                    tier,
-                                                    division,
-                                                    matchesPlayed,
-                                                    mmrRatio,
-                                                    playlistSessionWins,
-                                                    playlistSessionLoses
-                                                };
+                                                    int mmrInt = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture));
+                                                    string mmrRatio = "0";
+                                                    string playlistSessionWins = "0";
+                                                    string playlistSessionLoses = "0";
 
-                                                statsPerPlaylist.Add(playlist, stats);
-                                                AnnounceNewPlaylist(playlist, mmrInt);
-                                                AppendStatsToFiles(playlist);
+                                                    List<string> stats = new List<string>
+                                                    {
+                                                        mmr,
+                                                        tier,
+                                                        division,
+                                                        matchesPlayed,
+                                                        mmrRatio,
+                                                        playlistSessionWins,
+                                                        playlistSessionLoses
+                                                    };
+
+                                                    statsPerPlaylist.Add(playlist, stats);
+                                                    AnnounceNewPlaylist(playlist, mmrInt);
+                                                    AppendStatsToFiles(playlist);
+                                                }
+
                                             } else
                                             {
                                                 int numericMmr = CalculateRescaledMmr(decimal.Parse(mmr, CultureInfo.InvariantCulture));
@@ -816,13 +820,11 @@ namespace LandasRLTracker
         static void AnnounceNewPlaylist(string playlist, int mmr)
         {
             Console.WriteLine("\n");
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("[{0}]", DateTime.Now);
             Console.ResetColor();
             Console.Write(" New UPDATE of your MMR stats detected! Playlist: ");
-            Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(MapPlaylistName(int.Parse(playlist)));
             Console.ResetColor();
             Console.WriteLine("\n");
