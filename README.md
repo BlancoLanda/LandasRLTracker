@@ -14,7 +14,7 @@ The only requirement is having the tracker opened while playing Rocket League.
 
 **Keys (Console instance have to be selected for catching the key press):**
 
-**R:** Reset stats without existing the program (MMR and W/L global ratios and ratios for every playlists are reset to 0). 
+**R:** Reset stats without existing the program (MMR and W/L global ratios and ratios for every playlist are reset to 0). 
 
 ## Information displayed
 
