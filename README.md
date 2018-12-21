@@ -82,5 +82,6 @@ If you find any bug, need any help or want to contact me for anything related wi
 ## Donations
 
 If you are enjoying the tracker and want to collaborate, you can also make me a little donation. Thank you very much!
+
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VA22BR3GLBECC&source=url)
 
