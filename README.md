@@ -77,4 +77,4 @@ This tracker is safe, you will never get a Rocket League crash from this, becaus
 
 ## Need help?
 
-If you need any help or want to contact me for anything related with this project, you can reach me at [Steam](https://steamcommunity.com/id/blancolanda/) or [Twitter](https://twitter.com/BlancoLanda)!
+If you need any help or want to contact me for anything related with this project, you can reach me at [Steam](https://steamcommunity.com/id/blancolanda/), [Twitter](https://twitter.com/BlancoLanda) or [Reddit](https://www.reddit.com/user/Blancolanda)!
