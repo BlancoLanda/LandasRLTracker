@@ -12,7 +12,9 @@ This program requires .NET Framework v4.6.1+, you can get latest version at: htt
 
 The only requirement is having the tracker opened while playing Rocket League.
 
-If you want to reset the stats without exiting the program, you can do it by pressing 'r' key.
+**Keys (Console instance have to be selected for catching the key press):**
+
+**R:** Reset stats without existing the program (MMR and W/L global ratios and ratios for everyplaylists are reseted to 0). 
 
 ## Information displayed
 
