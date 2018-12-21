@@ -8,7 +8,7 @@ Information is obtained using Rocket League local logfiles (Psyonix API is close
 
 ## Usage
 
-This program requires .NET Framework v4.6.1+, you can get latest version at: https://dotnet.microsoft.com/download/dotnet-framework-runtime
+This program requires .NET Framework v4.6.1+, normally you'll already have the latest version installed. Anyway, you can download it at: https://dotnet.microsoft.com/download/dotnet-framework-runtime
 
 The only requirement is having the tracker opened while playing Rocket League.
 
