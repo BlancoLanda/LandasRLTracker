@@ -78,3 +78,9 @@ This tracker is safe, you will never get a Rocket League crash from this, becaus
 ## Need help?
 
 If you find any bug, need any help or want to contact me for anything related with this project please, send me a message! You can reach me at [Steam](https://steamcommunity.com/id/blancolanda/), [Twitter](https://twitter.com/LandaRLTracker) or [Reddit](https://www.reddit.com/user/Blancolanda)!
+
+## Donations
+
+If you are enjoying the tracker and want to collaborate, you can also make me a little donation. Thank you very much!
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VA22BR3GLBECC&source=url)
+
