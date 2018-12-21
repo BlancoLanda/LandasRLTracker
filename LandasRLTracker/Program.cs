@@ -74,7 +74,10 @@ namespace LandasRLTracker
 
                 steamId = SetSteamId();
                 steamNickname = SetNicknameFromId(steamId);
-                Console.WriteLine("Steam/RL nickname detected:      {0}\n", steamNickname);
+                Console.Write("\nSteam/RL nickname detected:");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(" {0}\n", steamNickname);
+                Console.ResetColor();
 
                 Console.Write("Getting MMR data of your account...");
                 System.Threading.Thread.Sleep(1000);
@@ -608,7 +611,7 @@ namespace LandasRLTracker
 
                 if (key == ConsoleKey.R)
                 {
-                    Console.WriteLine("You pressed the R key! All stats are reset to 0. New session starting now!");
+                    Console.WriteLine("You pressed thre R key! All stats are reset to 0. New session starting now!");
                     Console.WriteLine("...");
                     foreach (var playlist in statsPerPlaylist.Keys)
                     {
