@@ -15,9 +15,9 @@ namespace LandasRLTracker
 {
     class Program
     {
-        readonly static string RLLogPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Documents\My Games\Rocket League\TAGame\Logs\Launch.log");
+        public static string RLLogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\Rocket League\TAGame\Logs\Launch.log";
         readonly static string streamerKitFolder = @"StreamerKit\";
-        readonly static string version = "v1.3";
+        readonly static string version = "v1.3.1";
         public static string steamId;
         public static string steamNickname;
         public static string storedLine;
@@ -41,6 +41,8 @@ namespace LandasRLTracker
             // 1. Check if Steam and Rocket League are running.
             // 2. Get Steam ID and nickname from logged in Steam account.
             // 3. Get MMR starting data from local logs.
+
+            // First, check if "Documents" folder is hosted in OneDrive (cloud), can happen.
 
             sessionTotalLoses = 0;
             sessionTotalWins = 0;
