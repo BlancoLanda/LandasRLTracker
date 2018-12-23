@@ -33,8 +33,8 @@ Landa's RL Tracker displays the following information inside a console:
   * Updated MMR (and rank name + division associated) in that playlist.
   * MMR ratio of the session for the current playlist.
   * Total games played and W/L ratio of the session for the current playlist.
-  * Total MMR ratio of the session including all playlists.
-  * Total games played and W/L of the session including all playlists.
+  * Total MMR ratio of the session including all playlists (GLOBAL).
+  * Total games played and W/L of the session including all playlists (GLOBAL).
   
 ![Image](https://i.imgur.com/2gTnvYq.png)
   
