@@ -69,7 +69,7 @@ Actually, reading MMR changes through RL logs is not perfect. There are 3 cases 
 
 That happens because RL triggers win/lose & MMR data updates when a winner is announced. 
 
-Normally, in these cases, stats won't be instantly updated just after the match, and **they get updated in the next log update, normally in the start of the next match.** That means, a little delay, but nothing too serious.
+Normally, in these cases, stats won't be instantly updated just after the match, and **they get updated in the next log update, normally in the start of the next match.** That means, a little delay. There is also a small possibility that stats don't update, like that match never existed :/
 
 ## Is it legal and safe?
 
