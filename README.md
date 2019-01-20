@@ -35,6 +35,8 @@ Landa's RL Tracker displays the following information inside a console:
   * Total games played and W/L ratio of the session for the current playlist.
   * Total MMR ratio of the session including all playlists (GLOBAL).
   * Total games played and W/L of the session including all playlists (GLOBAL).
+  * Current winning/losing streak.
+  * Longest winning/losing streak of the session.
   
 ![Image](https://i.imgur.com/2PDWWYT.png)
   
