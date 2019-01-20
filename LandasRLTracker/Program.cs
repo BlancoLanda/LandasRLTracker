@@ -17,7 +17,7 @@ namespace LandasRLTracker
     {
         public static string RLLogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\Rocket League\TAGame\Logs\Launch.log";
         readonly static string streamerKitFolder = @"StreamerKit\";
-        readonly static string version = "v1.3.1";
+        readonly static string version = "v1.4.0";
         public static string steamId;
         public static string steamNickname;
         public static string storedLine;
@@ -25,6 +25,9 @@ namespace LandasRLTracker
         public static int sessionTotalLoses;
         public static int sessionTotalWins;
         public static int sessionTotalMmrRatio;
+        public static int sessionCurrentStreak;
+        public static int sessionLongestWStreak;
+        public static int sessionLongestLStreak;
         public static SortedDictionary<string, List<string>> statsPerPlaylist = new SortedDictionary<string, List<string>>();
         public static List<string> initialPlaylists = new List<string>();
 
@@ -48,6 +51,9 @@ namespace LandasRLTracker
             sessionTotalWins = 0;
             sessionTotalMmrRatio = 0;
             sessionTotalGames = 0;
+            sessionCurrentStreak = 0;
+            sessionLongestWStreak = 0;
+            sessionLongestLStreak = 0;
 
             if (File.Exists(RLLogPath))
             {
@@ -519,12 +525,44 @@ namespace LandasRLTracker
                                                             // Match finished with a win.
                                                             playlistSessionWins = (int.Parse(statsPerPlaylist[playlist][5]) + 1).ToString();
                                                             sessionTotalWins++;
+
+                                                            if(sessionCurrentStreak < 0)
+                                                            {
+                                                                // End of current losing streak.
+                                                                sessionCurrentStreak = 1;
+                                                            } else
+                                                            {
+                                                                // Current winning streak keeps going.
+                                                                sessionCurrentStreak++;
+                                                            }
+
+                                                            if(sessionCurrentStreak > sessionLongestWStreak)
+                                                            {
+                                                                sessionLongestWStreak = sessionCurrentStreak;
+                                                            }
+
                                                         }
                                                         else
                                                         {
                                                             // Match finished with a lose.
                                                             playlistSessionLoses = (int.Parse(statsPerPlaylist[playlist][6]) + 1).ToString();
                                                             sessionTotalLoses++;
+
+                                                            if (sessionCurrentStreak > 0)
+                                                            {
+                                                                // End of current winning streak.
+                                                                sessionCurrentStreak = -1;
+                                                            } else
+                                                            {
+                                                                // Current losing streak keeps going.
+                                                                sessionCurrentStreak--;
+                                                            }
+
+                                                            if (sessionCurrentStreak < sessionLongestLStreak)
+                                                            {
+                                                                sessionLongestLStreak = sessionCurrentStreak;
+                                                            }
+
                                                         }
 
                                                         string tierChange = "no";
@@ -725,6 +763,9 @@ namespace LandasRLTracker
             File.WriteAllText(streamerKitFolder + @"\Global\loses.txt", sessionTotalLoses.ToString());
             File.WriteAllText(streamerKitFolder + @"\Global\total_games.txt", sessionTotalGames.ToString());
             File.WriteAllText(streamerKitFolder + @"\Global\last_update_timestamp.txt", DateTime.Now.ToString());
+            File.WriteAllText(streamerKitFolder + @"\Global\current_streak.txt", GetStreakStringByInt(sessionCurrentStreak));
+            File.WriteAllText(streamerKitFolder + @"\Global\longest_winning_streak.txt", GetStreakStringByInt(sessionLongestWStreak));
+            File.WriteAllText(streamerKitFolder + @"\Global\longest_losing_streak.txt", GetStreakStringByInt(sessionLongestLStreak));
 
         }
 
@@ -747,6 +788,9 @@ namespace LandasRLTracker
             File.WriteAllText(streamerKitFolder + @"\Global\loses.txt", sessionTotalLoses.ToString());
             File.WriteAllText(streamerKitFolder + @"\Global\total_games.txt", sessionTotalGames.ToString());
             File.WriteAllText(streamerKitFolder + @"\Global\last_update_timestamp.txt", DateTime.Now.ToString());
+            File.WriteAllText(streamerKitFolder + @"\Global\current_streak.txt", GetStreakStringByInt(sessionCurrentStreak));
+            File.WriteAllText(streamerKitFolder + @"\Global\longest_winning_streak.txt", GetStreakStringByInt(sessionLongestWStreak));
+            File.WriteAllText(streamerKitFolder + @"\Global\longest_losing_streak.txt", GetStreakStringByInt(sessionLongestLStreak));
         }
 
         static void AnnounceUpdate(string playlist, List<string> stats, int mmrWonOrLost, string tierChange, string divisionChange)
@@ -808,11 +852,36 @@ namespace LandasRLTracker
             PrintGlobalTag();
             Console.WriteLine(" Total Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), sessionTotalGames, sessionTotalWins, sessionTotalLoses);
 
+            PrintGlobalTag();
+            Console.WriteLine(" Session current streak: {0} ", GetStreakStringByInt(sessionCurrentStreak));
+            PrintGlobalTag();
+            Console.WriteLine(" Session longest winning streak: {0}. Longest losing streak: {1}\n", GetStreakStringByInt(sessionLongestWStreak), GetStreakStringByInt(sessionLongestLStreak));
+
             System.Threading.Thread.Sleep(1000);
 
             Console.WriteLine("Resuming live tracking. Do not close this window!");
             System.Threading.Thread.Sleep(100);
             Console.WriteLine("...");
+        }
+
+        static string GetStreakStringByInt(int streak)
+        {
+            string streakString = "";
+
+            if(streak<0)
+            {
+                streak = Math.Abs(streak);
+                streakString = streak.ToString() + "L";
+            } else if (streak==0)
+            {
+                streakString = streak.ToString();
+            } else
+            {
+                streakString = streak.ToString() + "W";
+            }
+
+            return streakString;
+
         }
 
         static void PrintPlaylistTag(string playlist)
