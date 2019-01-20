@@ -73,6 +73,26 @@ That happens because RL triggers win/lose & MMR data updates when a winner is an
 
 Normally, in these cases, stats won't be instantly updated just after the match, and **they get updated in the next log update, normally in the start of the next match.** That means, a little delay. There is also a small possibility that stats don't update, like that match never existed :/
 
+## In-game GUI [OverlayMCM] (Thanks to Kaientai)
+
+User [Kaientai](https://steamcommunity.com/id/thekaientai) made an awesome AHK script, called OverlayMCM, that allows getting updates and stats in-game, you don't even need to check the console.
+
+ ![Image](https://i.imgur.com/epfe5ma.png)
+ 
+  **How to install it?**
+  - Download source code and binaries [here](https://github.com/BlancoLanda/LandasRLTracker/releases/download/v1.4.0/OverlayMCM.zip)
+  - Extract its contents in the same folder where _LandasRLTracker.exe_ is.
+  - Run _LandasRLTracker.exe_ as always.
+  - Now, also run _OverlayMCM.exe_ in the background. Ready!
+  
+  (**Note:** Source code is located in _OverlayMCM.exe_. You can make any change there (for example: Language), then you need software like [Autohotkey](https://www.autohotkey.com/download/) to compile the .ahk file to .exe)
+ 
+ **How it works?**
+ 
+ - When a match ends, an overlay with stats of the current playlists appears during 5 seconds.
+ - You can check the overlay whenever you want by pressing F1 key.
+ - You can leave the program by pressing F12 key.
+
 ## Is it legal and safe?
 
 This tracker is safe, you will never get a Rocket League crash from this, because it does NEVER interact with Rocket League client. It only gets live information from Rocket League text logs with 'Read only' flag. Then, in the same way, its use is totally legal.
