@@ -36,7 +36,7 @@ Landa's RL Tracker displays the following information inside a console:
   * Total MMR ratio of the session including all playlists (GLOBAL).
   * Total games played and W/L of the session including all playlists (GLOBAL).
   
-![Image](https://i.imgur.com/2gTnvYq.png)
+![Image](https://i.imgur.com/2PDWWYT.png)
   
 ## Tool for streamers
   
