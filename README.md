@@ -64,12 +64,12 @@ Head to the [releases page](https://github.com/BlancoLanda/LandasRLTracker/relea
 
 Actually, reading MMR changes through RL logs is not perfect. There are 3 cases where it won't be instant:
 1. If one team surrenders, and you leave BEFORE the winner announcement (i.e. forfeiting during a goal replay and leaving before the replay end).
-2. When a goal is scored in minute 00:00 and you leave before the winner announcement.
+2. When a goal is scored in minute 00:00 (or when scored in overtime) and you leave before the winner announcement.
 3. If you leave without forfeiting (Force quit with game ban). Also in team playlists, if you leave after one of your teammates left without forfeiting.
 
 That happens because RL triggers win/lose & MMR data updates when a winner is announced. 
 
-Normally, in these cases, stats won't be instantly updated just after the match, and **they get updated in the next log update, normally in the start of the next match.** That means, a little delay, but nothing too serious.
+Normally, in these cases, stats won't be instantly updated just after the match, and **they get updated in the next log update, normally in the start of the next match.** That means, a little delay. There is also a small possibility that stats don't update, like that match never existed :/
 
 ## Is it legal and safe?
 
