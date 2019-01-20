@@ -709,11 +709,11 @@ namespace LandasRLTracker
                 Directory.CreateDirectory(streamerKitFolder);
                 Directory.CreateDirectory(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)));
 
-                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr.txt", CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture)).ToString());
-                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\rank_name.txt", MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])));
-                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_ratio.txt", int.Parse((statsPerPlaylist[playlist])[4]).ToString("+0;-#"));
-                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\wins.txt", (statsPerPlaylist[playlist])[5].ToString());
-                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", (statsPerPlaylist[playlist])[6].ToString());
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr.txt", CalculateRescaledMmr(decimal.Parse(statsPerPlaylist[playlist][0], CultureInfo.InvariantCulture)).ToString());
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\rank_name.txt", MapTierName(int.Parse(statsPerPlaylist[playlist][1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])));
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_ratio.txt", int.Parse(statsPerPlaylist[playlist][4]).ToString("+0;-#"));
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\wins.txt", statsPerPlaylist[playlist][5].ToString());
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", statsPerPlaylist[playlist][6].ToString());
                 string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse((statsPerPlaylist[playlist])[6])).ToString();
                 File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\total_games.txt", totalPlaylistGames);
 
@@ -734,12 +734,12 @@ namespace LandasRLTracker
             Directory.CreateDirectory(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)));
             Directory.CreateDirectory(streamerKitFolder + @"\Global");
 
-            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr.txt", CalculateRescaledMmr(decimal.Parse((statsPerPlaylist[playlist])[0], CultureInfo.InvariantCulture)).ToString());
-            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\rank_name.txt", MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])));
-            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_ratio.txt", int.Parse((statsPerPlaylist[playlist])[4]).ToString("+0;-#"));
-            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\wins.txt", (statsPerPlaylist[playlist])[5].ToString());
-            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", (statsPerPlaylist[playlist])[6].ToString());
-            string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse((statsPerPlaylist[playlist])[6])).ToString();
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr.txt", CalculateRescaledMmr(decimal.Parse(statsPerPlaylist[playlist][0], CultureInfo.InvariantCulture)).ToString());
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\rank_name.txt", MapTierName(int.Parse(statsPerPlaylist[playlist][1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])));
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\mmr_session_ratio.txt", int.Parse(statsPerPlaylist[playlist][4]).ToString("+0;-#"));
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\wins.txt", statsPerPlaylist[playlist][5].ToString());
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", statsPerPlaylist[playlist][6].ToString());
+            string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse(statsPerPlaylist[playlist][6])).ToString();
             File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\total_games.txt", totalPlaylistGames);
 
             File.WriteAllText(streamerKitFolder + @"\Global\mmr_session_ratio.txt", sessionTotalMmrRatio.ToString("+0;-#"));
