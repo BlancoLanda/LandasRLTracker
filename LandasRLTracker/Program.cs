@@ -45,8 +45,6 @@ namespace LandasRLTracker
             // 2. Get Steam ID and nickname from logged in Steam account.
             // 3. Get MMR starting data from local logs.
 
-            // First, check if "Documents" folder is hosted in OneDrive (cloud), can happen.
-
             sessionTotalLoses = 0;
             sessionTotalWins = 0;
             sessionTotalMmrRatio = 0;
@@ -664,6 +662,9 @@ namespace LandasRLTracker
                     sessionTotalLoses = 0;
                     sessionTotalWins = 0;
                     sessionTotalMmrRatio = 0;
+                    sessionCurrentStreak = 0;
+                    sessionLongestLStreak = 0;
+                    sessionLongestWStreak = 0;
                     AppendStatsToFiles();
 
                 }
