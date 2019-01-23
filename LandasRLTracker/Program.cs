@@ -28,6 +28,7 @@ namespace LandasRLTracker
         public static int sessionCurrentStreak;
         public static int sessionLongestWStreak;
         public static int sessionLongestLStreak;
+        public static Stopwatch stopwatch;
         public static SortedDictionary<string, List<string>> statsPerPlaylist = new SortedDictionary<string, List<string>>();
         public static List<string> initialPlaylists = new List<string>();
 
@@ -52,6 +53,9 @@ namespace LandasRLTracker
             sessionCurrentStreak = 0;
             sessionLongestWStreak = 0;
             sessionLongestLStreak = 0;
+
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             if (File.Exists(RLLogPath))
             {
@@ -665,6 +669,7 @@ namespace LandasRLTracker
                     sessionCurrentStreak = 0;
                     sessionLongestLStreak = 0;
                     sessionLongestWStreak = 0;
+                    stopwatch.Restart();
                     AppendStatsToFiles();
 
                 }
@@ -861,6 +866,9 @@ namespace LandasRLTracker
             Console.WriteLine(" Session current streak: {0} ", GetStreakStringByInt(sessionCurrentStreak));
             PrintGlobalTag();
             Console.WriteLine(" Session longest winning streak: {0}. Longest losing streak: {1}\n", GetStreakStringByInt(sessionLongestWStreak), GetStreakStringByInt(sessionLongestLStreak));
+
+            PrintGlobalTag();
+            Console.WriteLine(" Session total time: {0:hh\\:mm\\:ss}\n", stopwatch.Elapsed);
 
             System.Threading.Thread.Sleep(1000);
 
