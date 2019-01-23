@@ -755,6 +755,7 @@ namespace LandasRLTracker
                 File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", statsPerPlaylist[playlist][6].ToString());
                 string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse((statsPerPlaylist[playlist])[6])).ToString();
                 File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\total_games.txt", totalPlaylistGames);
+                File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\win_rate.txt", GetWinPercentage(int.Parse(statsPerPlaylist[playlist][5]), int.Parse(statsPerPlaylist[playlist][6])).ToString("0.##") + "%");
 
             }
 
@@ -767,6 +768,7 @@ namespace LandasRLTracker
             File.WriteAllText(streamerKitFolder + @"\Global\current_streak.txt", GetStreakStringByInt(sessionCurrentStreak));
             File.WriteAllText(streamerKitFolder + @"\Global\longest_winning_streak.txt", GetStreakStringByInt(sessionLongestWStreak));
             File.WriteAllText(streamerKitFolder + @"\Global\longest_losing_streak.txt", GetStreakStringByInt(sessionLongestLStreak));
+            File.WriteAllText(streamerKitFolder + @"\Global\global_win_rate.txt", GetWinPercentage(sessionTotalWins, sessionTotalLoses).ToString("0.##") + "%");
 
         }
 
@@ -783,6 +785,7 @@ namespace LandasRLTracker
             File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\loses.txt", statsPerPlaylist[playlist][6].ToString());
             string totalPlaylistGames = (int.Parse((statsPerPlaylist[playlist])[5]) + int.Parse(statsPerPlaylist[playlist][6])).ToString();
             File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\total_games.txt", totalPlaylistGames);
+            File.WriteAllText(streamerKitFolder + @"\" + MapPlaylistName(int.Parse(playlist)) + @"\win_rate.txt", GetWinPercentage(int.Parse(statsPerPlaylist[playlist][5]), int.Parse(statsPerPlaylist[playlist][6])).ToString("0.##") + "%");
 
             File.WriteAllText(streamerKitFolder + @"\Global\mmr_session_ratio.txt", sessionTotalMmrRatio.ToString("+0;-#"));
             File.WriteAllText(streamerKitFolder + @"\Global\wins.txt", sessionTotalWins.ToString());
@@ -792,6 +795,7 @@ namespace LandasRLTracker
             File.WriteAllText(streamerKitFolder + @"\Global\current_streak.txt", GetStreakStringByInt(sessionCurrentStreak));
             File.WriteAllText(streamerKitFolder + @"\Global\longest_winning_streak.txt", GetStreakStringByInt(sessionLongestWStreak));
             File.WriteAllText(streamerKitFolder + @"\Global\longest_losing_streak.txt", GetStreakStringByInt(sessionLongestLStreak));
+            File.WriteAllText(streamerKitFolder + @"\Global\global_win_rate.txt", GetWinPercentage(sessionTotalWins, sessionTotalLoses).ToString("0.##") + "%");
         }
 
         static void AnnounceUpdate(string playlist, List<string> stats, int mmrWonOrLost, string tierChange, string divisionChange)
@@ -846,12 +850,12 @@ namespace LandasRLTracker
             Console.WriteLine(" Playlist Session MMR ratio: {1} ", MapPlaylistName(int.Parse(playlist)), int.Parse(stats[4]).ToString("+0;-#"));
             string playlistTotalGames = (int.Parse(stats[5]) + int.Parse(stats[6])).ToString();
             PrintPlaylistTag(playlist);
-            Console.WriteLine(" Playlist Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), playlistTotalGames, stats[5], stats[6]);
+            Console.WriteLine(" Playlist Session W/L ratio: {1} Games ({2}W, {3}L) [Win Rate: {4}%]\n", MapPlaylistName(int.Parse(playlist)), playlistTotalGames, stats[5], stats[6], GetWinPercentage(int.Parse(stats[5]), int.Parse(stats[6])).ToString("0.##"));
 
             PrintGlobalTag();
             Console.WriteLine(" Total Session MMR ratio: {1} ", MapPlaylistName(int.Parse(playlist)), sessionTotalMmrRatio.ToString("+0;-#"));
             PrintGlobalTag();
-            Console.WriteLine(" Total Session W/L ratio: {1} Games ({2}W, {3}L)\n", MapPlaylistName(int.Parse(playlist)), sessionTotalGames, sessionTotalWins, sessionTotalLoses);
+            Console.WriteLine(" Total Session W/L ratio: {1} Games ({2}W, {3}L) [Win Rate: {4}%]\n", MapPlaylistName(int.Parse(playlist)), sessionTotalGames, sessionTotalWins, sessionTotalLoses, GetWinPercentage(sessionTotalWins, sessionTotalLoses).ToString("0.##"));
 
             PrintGlobalTag();
             Console.WriteLine(" Session current streak: {0} ", GetStreakStringByInt(sessionCurrentStreak));
@@ -863,6 +867,23 @@ namespace LandasRLTracker
             Console.WriteLine("Resuming live tracking. Do not close this window!");
             System.Threading.Thread.Sleep(100);
             Console.WriteLine("...");
+        }
+
+        static decimal GetWinPercentage(int wins, int loses)
+        {
+            int totalGames = wins + loses;
+
+            if (totalGames == 0)
+            {
+                return 0;
+            } else
+            {
+
+                decimal winPercentage = ((decimal)wins / (decimal)totalGames) * 100;
+                return winPercentage;
+
+            }
+
         }
 
         static string GetStreakStringByInt(int streak)
