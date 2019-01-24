@@ -17,7 +17,7 @@ namespace LandasRLTracker
     {
         public static string RLLogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\Rocket League\TAGame\Logs\Launch.log";
         readonly static string streamerKitFolder = @"StreamerKit\";
-        readonly static string version = "v1.4.0";
+        readonly static string version = "v1.5.0";
         public static string steamId;
         public static string steamNickname;
         public static string storedLine;
@@ -30,6 +30,7 @@ namespace LandasRLTracker
         public static int sessionLongestLStreak;
         public static Stopwatch stopwatch;
         public static SortedDictionary<string, List<string>> statsPerPlaylist = new SortedDictionary<string, List<string>>();
+        public static SortedDictionary<string, List<string>> initialStatsPerPlaylist = new SortedDictionary<string, List<string>>();
         public static List<string> initialPlaylists = new List<string>();
 
 
@@ -65,9 +66,13 @@ namespace LandasRLTracker
                 CheckUpdates();
                 System.Threading.Thread.Sleep(100);
                 PrintInfoTag();
-                Console.WriteLine(" Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!");
+                Console.WriteLine(" Restarting or closing RL won't affect session tracking, but NEVER close this window until you're done!\n");
                 PrintInfoTag();
-                Console.WriteLine(" Whenever you want to reset your stats (including files), simply go to this window and press 'r' key. A confirmation message will be printed.\n");
+                Console.WriteLine(" Keys (Console window must be active):");
+                PrintInfoTag();
+                Console.WriteLine(" 'R' -> Reset your stats (including files), like starting a new session.");
+                PrintInfoTag();
+                Console.WriteLine(" 'S' -> Get a full summary of your current session (Games played, MMR won, ranks gained, etc.).\n");
                 System.Threading.Thread.Sleep(1000);
                 Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
                 if (RLProcess.Length == 0)
@@ -346,6 +351,7 @@ namespace LandasRLTracker
                                 if (!statsPerPlaylist.ContainsKey(playlist))
                                 {
                                     statsPerPlaylist.Add(playlist, stats);
+                                    initialStatsPerPlaylist.Add(playlist, stats);
                                 }
 
                             }
@@ -502,6 +508,7 @@ namespace LandasRLTracker
                                                     };
 
                                                         statsPerPlaylist.Add(playlist, stats);
+                                                        initialStatsPerPlaylist.Add(playlist, stats);
                                                         AnnounceNewPlaylist(playlist, mmrInt);
                                                         AppendStatsToFiles(playlist);
                                                     }
@@ -634,7 +641,9 @@ namespace LandasRLTracker
                     Process[] RLProcess = Process.GetProcessesByName("RocketLeague");
                     if (RLProcess.Length == 0)
                     {
-                        Console.WriteLine("Rocket League process has been closed. Waiting for it to be opened to keep getting data...");
+                        Console.WriteLine("Rocket League process has been closed. Waiting for it to be opened to keep getting data!");
+                        System.Threading.Thread.Sleep(1000);
+                        SessionSummary(true);
                         while (RLProcess.Length == 0)
                         {
                             // Do nothing, just wait...
@@ -671,7 +680,20 @@ namespace LandasRLTracker
                     sessionLongestWStreak = 0;
                     stopwatch.Restart();
                     AppendStatsToFiles();
+                    initialStatsPerPlaylist = statsPerPlaylist;
 
+                }
+
+                if (key == ConsoleKey.S)
+                {
+                    Console.WriteLine("You pressed the S key! You just requested a summary of this session.\n");
+                    SessionSummary(false);
+
+                    System.Threading.Thread.Sleep(1000);
+
+                    Console.WriteLine("Resuming live tracking. Do not close this window!");
+                    System.Threading.Thread.Sleep(100);
+                    Console.WriteLine("...");
                 }
             }
         }
@@ -875,6 +897,59 @@ namespace LandasRLTracker
             Console.WriteLine("Resuming live tracking. Do not close this window!");
             System.Threading.Thread.Sleep(100);
             Console.WriteLine("...");
+        }
+
+        static void SessionSummary(bool rlClosed)
+        {
+
+            var PlaylistSummary = new List<PlaylistSummary>();
+
+            foreach (var playlist in statsPerPlaylist.Keys)
+            {
+                // Check if final number of matches played equals to initial one. If true, it means the playlist was active in this session. If false, playlist not active, and ignores it.
+                if(initialStatsPerPlaylist[playlist][3] == statsPerPlaylist[playlist][3])
+                {
+                continue;
+                } else
+                {
+                    string name = MapPlaylistName(int.Parse(playlist));
+                    int matchesPlayed = int.Parse(statsPerPlaylist[playlist][3]) - int.Parse(initialStatsPerPlaylist[playlist][3]);
+                    string winsNumber = statsPerPlaylist[playlist][5];
+                    decimal winRate = GetWinPercentage(int.Parse(winsNumber), int.Parse(initialStatsPerPlaylist[playlist][6]));
+                    string wins = winsNumber + " (" + winRate.ToString() + "%)";
+                    int loses = int.Parse(statsPerPlaylist[playlist][6]);
+                    string mmrRatio = int.Parse(statsPerPlaylist[playlist][4]).ToString("+0;-#");
+                    string initialMmr = CalculateRescaledMmr(decimal.Parse(initialStatsPerPlaylist[playlist][0], CultureInfo.InvariantCulture)).ToString();
+                    string currentMmr = CalculateRescaledMmr(decimal.Parse(statsPerPlaylist[playlist][0], CultureInfo.InvariantCulture)).ToString();
+                    string initialRankName = MapTierName(int.Parse((initialStatsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((initialStatsPerPlaylist[playlist])[2])) + " (" + initialMmr + " MMR)";
+                    string currentRankName = MapTierName(int.Parse((statsPerPlaylist[playlist])[1])) + " " + MapDivisionName(int.Parse((statsPerPlaylist[playlist])[2])) + " (" + currentMmr + " MMR)";
+
+                    PlaylistSummary.Add(new PlaylistSummary { Name = name, matchesPlayed = matchesPlayed, winsAndWinrate = wins, loses = loses, mmrRatio = mmrRatio, initialRank = initialRankName, currentRank = currentRankName });
+                }
+            }
+
+            if(!PlaylistSummary.Any())
+            {
+                if(!rlClosed)
+                {
+                    Console.WriteLine("You asked for the summary of the current session... but you still didn't play any match! Start playing and try again later.\n");
+                }   
+            } else
+            {
+
+                if(rlClosed)
+                {
+                    Console.WriteLine("Let me show you the summary of the current session!\n");
+                }
+
+                Console.WriteLine("     ACTIVE PLAYLISTS THIS SESSION:\n");
+                System.Threading.Thread.Sleep(200);
+                Console.Write(PlaylistSummary.ToMarkdownTable().WithHeaders("Playlist", "Matches played", "Wins", "Loses", "MMR Ratio", "Initial rank", "Current rank"));
+                Console.WriteLine();
+                Console.WriteLine(" Session total time: {0:hh\\:mm\\:ss}\n", stopwatch.Elapsed);
+
+            }
+
         }
 
         static decimal GetWinPercentage(int wins, int loses)
