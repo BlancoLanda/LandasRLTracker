@@ -17,7 +17,7 @@ namespace LandasRLTracker
     {
         public static string RLLogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\Rocket League\TAGame\Logs\Launch.log";
         readonly static string streamerKitFolder = @"StreamerKit\";
-        readonly static string version = "v1.5.0";
+        readonly static string version = "v1.5.1";
         public static string steamId;
         public static string steamNickname;
         public static string storedLine;
@@ -915,7 +915,7 @@ namespace LandasRLTracker
                     string name = MapPlaylistName(int.Parse(playlist));
                     int matchesPlayed = int.Parse(statsPerPlaylist[playlist][3]) - int.Parse(initialStatsPerPlaylist[playlist][3]);
                     string winsNumber = statsPerPlaylist[playlist][5];
-                    decimal winRate = GetWinPercentage(int.Parse(winsNumber), int.Parse(initialStatsPerPlaylist[playlist][6]));
+                    decimal winRate = GetWinPercentage(int.Parse(winsNumber), int.Parse(statsPerPlaylist[playlist][6]));
                     string wins = winsNumber + " (" + winRate.ToString() + "%)";
                     int loses = int.Parse(statsPerPlaylist[playlist][6]);
                     string mmrRatio = int.Parse(statsPerPlaylist[playlist][4]).ToString("+0;-#");
