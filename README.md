@@ -14,7 +14,8 @@ The only requirement is having the tracker opened while playing Rocket League.
 
 **Keys (Console instance have to be selected for catching the key press):**
 
-**R:** Reset stats without exiting the program (MMR and W/L global ratios and ratios for every playlist are reset to 0). 
+**R:** Reset stats without exiting the program (all stats for every playlist are reset to 0. It's like starting a new session).
+**S:** Get a full summary of your current session (Games played, MMR won, ranks gained, etc.)
 
 ## Information displayed
 
@@ -32,13 +33,26 @@ Landa's RL Tracker displays the following information inside a console:
   * Rank up/down and tier up/down notifications.  
   * Updated MMR (and rank name + division associated) in that playlist.
   * MMR ratio of the session for the current playlist.
-  * Total games played and W/L ratio of the session for the current playlist.
+  * Total games played and W/L ratio of the session for the current playlist (and win rate).
   * Total MMR ratio of the session including all playlists (GLOBAL).
   * Total games played and W/L of the session including all playlists (GLOBAL).
   * Current winning/losing streak.
   * Longest winning/losing streak of the session.
+  * Stopwatch with session elapsed time.
   
 ![Image](https://i.imgur.com/2PDWWYT.png)
+
+- When Rocket League is being closed OR when whenever you press 'S' key, a 'session summary' table is triggered with the following information (for each playlist):
+  * Name of active playlist in the session.
+  * Matches played.
+  * Wins (and win rate).
+  * Loses.
+  * MMR Ratio.
+  * Initial rank and MMR
+  * Ending rank and MMR
+  * Stopwatch with session elapsed time.
+  
+  ![Image](https://i.imgur.com/46H9xC1.png)
   
 ## Tool for streamers
   
