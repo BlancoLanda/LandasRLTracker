@@ -916,7 +916,7 @@ namespace LandasRLTracker
                     int matchesPlayed = int.Parse(statsPerPlaylist[playlist][3]) - int.Parse(initialStatsPerPlaylist[playlist][3]);
                     string winsNumber = statsPerPlaylist[playlist][5];
                     decimal winRate = GetWinPercentage(int.Parse(winsNumber), int.Parse(statsPerPlaylist[playlist][6]));
-                    string wins = winsNumber + " (" + winRate.ToString() + "%)";
+                    string wins = winsNumber + " (" + winRate.ToString("0.##") + "%)";
                     int loses = int.Parse(statsPerPlaylist[playlist][6]);
                     string mmrRatio = int.Parse(statsPerPlaylist[playlist][4]).ToString("+0;-#");
                     string initialMmr = CalculateRescaledMmr(decimal.Parse(initialStatsPerPlaylist[playlist][0], CultureInfo.InvariantCulture)).ToString();
