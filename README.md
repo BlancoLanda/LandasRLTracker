@@ -6,6 +6,8 @@ Landa's RL Tracker is a tool that allows tracking Rocket League gaming sessions.
 
 Information is obtained using Rocket League local logfiles (Psyonix API is closed from public access and I don't have a key). No third party queries are made. It checks the logs every second and parses all the MMR updates it throws.
 
+It's plug&play: Once tracker is opened, you don't have to do anything. Play your matches and enjoy the tracking! 💃 
+
 **Only Windows 7+ and Steam RL accounts supported.**
 
 ## Information displayed
