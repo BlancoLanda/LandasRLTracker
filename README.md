@@ -82,6 +82,7 @@ User [Kaientai](https://steamcommunity.com/id/thekaientai) made an awesome AHK s
  
  - When a match ends, an overlay with stats of the current playlists appears during 5 seconds.
  - You can check the overlay whenever you want by pressing F1 key.
+ - You can check the session summary with F5 key.
  - You can leave the program by pressing F12 key.
 
 ## Is it legal and safe?
