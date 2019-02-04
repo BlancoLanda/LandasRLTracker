@@ -563,7 +563,7 @@ namespace LandasRLTracker
 
         }
 
-        static string SetSteamId()
+        public string SetSteamId()
         {
             string id;
             using (var steam = new SteamBridge())
@@ -573,7 +573,7 @@ namespace LandasRLTracker
             return id;
         }
 
-        static string SetNicknameFromId(String steamId)
+        public string SetNicknameFromId(String steamId)
         {
             string name = "";
             var steamUserApi = new XmlDocument();
@@ -1316,13 +1316,13 @@ namespace LandasRLTracker
 
         }
 
-        public static int CalculateRescaledMmr(decimal mmr)
+        public int CalculateRescaledMmr(decimal mmr)
         {
             int rescaledMmr = Convert.ToInt32(Math.Round(((20 * mmr) + 100), 0));
             return rescaledMmr;
         }
 
-        public static string MapPlaylistName(int playlist)
+        public string MapPlaylistName(int playlist)
         {
             var map = new Dictionary<int, string>()
             {
@@ -1340,7 +1340,7 @@ namespace LandasRLTracker
 
         }
 
-        public static int MapPlaylistNameReversed(string playlistName)
+        public int MapPlaylistNameReversed(string playlistName)
         {
             var map = new Dictionary<string, int>()
             {
@@ -1358,7 +1358,7 @@ namespace LandasRLTracker
 
         }
 
-        public static string MapTierName(int tier)
+        public string MapTierName(int tier)
         {
             var map = new Dictionary<int, string>()
             {
@@ -1388,7 +1388,7 @@ namespace LandasRLTracker
 
         }
 
-        public static string MapDivisionName(int division)
+        public string MapDivisionName(int division)
         {
             var map = new Dictionary<int, string>()
             {
@@ -1404,7 +1404,7 @@ namespace LandasRLTracker
 
         }
 
-        public static int MapPlaylistToIndex(int playlist)
+        public int MapPlaylistToIndex(int playlist)
         {
             var map = new Dictionary<int, int>()
             {

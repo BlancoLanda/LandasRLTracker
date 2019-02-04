@@ -173,7 +173,7 @@ namespace LandasRLTracker
             // lblMmr
             // 
             this.lblMmr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMmr.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMmr.Font = new System.Drawing.Font("Bebas Neue Bold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMmr.ForeColor = System.Drawing.Color.Black;
             this.lblMmr.Location = new System.Drawing.Point(223, 269);
             this.lblMmr.Name = "lblMmr";
@@ -185,7 +185,7 @@ namespace LandasRLTracker
             // lblAddedMmr
             // 
             this.lblAddedMmr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAddedMmr.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAddedMmr.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAddedMmr.ForeColor = System.Drawing.Color.Black;
             this.lblAddedMmr.Location = new System.Drawing.Point(284, 272);
             this.lblAddedMmr.Name = "lblAddedMmr";
@@ -196,7 +196,7 @@ namespace LandasRLTracker
             // lblRankName
             // 
             this.lblRankName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRankName.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRankName.Font = new System.Drawing.Font("Bebas Neue Bold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRankName.ForeColor = System.Drawing.Color.Black;
             this.lblRankName.Location = new System.Drawing.Point(3, 220);
             this.lblRankName.Name = "lblRankName";
@@ -208,7 +208,7 @@ namespace LandasRLTracker
             // lblGamesPlayedCount
             // 
             this.lblGamesPlayedCount.AutoSize = true;
-            this.lblGamesPlayedCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGamesPlayedCount.Font = new System.Drawing.Font("Bebas Neue Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGamesPlayedCount.ForeColor = System.Drawing.Color.Black;
             this.lblGamesPlayedCount.Location = new System.Drawing.Point(109, 317);
             this.lblGamesPlayedCount.Name = "lblGamesPlayedCount";
@@ -220,7 +220,7 @@ namespace LandasRLTracker
             // lblGamesPlayed
             // 
             this.lblGamesPlayed.AutoSize = true;
-            this.lblGamesPlayed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGamesPlayed.Font = new System.Drawing.Font("Bebas Neue Regular", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGamesPlayed.ForeColor = System.Drawing.Color.Black;
             this.lblGamesPlayed.Location = new System.Drawing.Point(13, 317);
             this.lblGamesPlayed.Name = "lblGamesPlayed";
@@ -233,7 +233,7 @@ namespace LandasRLTracker
             // 
             this.lblRating.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblRating.AutoSize = true;
-            this.lblRating.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRating.Font = new System.Drawing.Font("Bebas Neue Regular", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRating.ForeColor = System.Drawing.Color.Black;
             this.lblRating.Location = new System.Drawing.Point(12, 270);
             this.lblRating.Name = "lblRating";
@@ -245,7 +245,7 @@ namespace LandasRLTracker
             // lblPlaylistName
             // 
             this.lblPlaylistName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPlaylistName.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlaylistName.Font = new System.Drawing.Font("Bebas Neue Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlaylistName.ForeColor = System.Drawing.Color.Black;
             this.lblPlaylistName.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblPlaylistName.Location = new System.Drawing.Point(3, 14);
@@ -285,7 +285,7 @@ namespace LandasRLTracker
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Bebas Neue Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(399, 196);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(124, 42);
@@ -330,7 +330,7 @@ namespace LandasRLTracker
             // lblTrackerLastUpdateValue
             // 
             this.lblTrackerLastUpdateValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastUpdateValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastUpdateValue.Font = new System.Drawing.Font("Bebas Neue Regular", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastUpdateValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastUpdateValue.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblTrackerLastUpdateValue.Location = new System.Drawing.Point(107, 3);
@@ -343,7 +343,7 @@ namespace LandasRLTracker
             // lblTrackerLastUpdateTag
             // 
             this.lblTrackerLastUpdateTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastUpdateTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastUpdateTag.Font = new System.Drawing.Font("Bebas Neue Bold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastUpdateTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastUpdateTag.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblTrackerLastUpdateTag.Location = new System.Drawing.Point(10, 3);
@@ -410,7 +410,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalWorstStreakValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalWorstStreakValue.AutoSize = true;
-            this.lblTrackerGlobalWorstStreakValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalWorstStreakValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalWorstStreakValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalWorstStreakValue.Location = new System.Drawing.Point(448, 142);
             this.lblTrackerGlobalWorstStreakValue.Name = "lblTrackerGlobalWorstStreakValue";
@@ -423,7 +423,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalBestStreakValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalBestStreakValue.AutoSize = true;
-            this.lblTrackerGlobalBestStreakValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalBestStreakValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalBestStreakValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalBestStreakValue.Location = new System.Drawing.Point(284, 142);
             this.lblTrackerGlobalBestStreakValue.Name = "lblTrackerGlobalBestStreakValue";
@@ -436,7 +436,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalCurrentStreakValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalCurrentStreakValue.AutoSize = true;
-            this.lblTrackerGlobalCurrentStreakValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalCurrentStreakValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalCurrentStreakValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalCurrentStreakValue.Location = new System.Drawing.Point(164, 142);
             this.lblTrackerGlobalCurrentStreakValue.Name = "lblTrackerGlobalCurrentStreakValue";
@@ -449,7 +449,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalLosesValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalLosesValue.AutoSize = true;
-            this.lblTrackerGlobalLosesValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalLosesValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalLosesValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalLosesValue.Location = new System.Drawing.Point(441, 97);
             this.lblTrackerGlobalLosesValue.Name = "lblTrackerGlobalLosesValue";
@@ -462,7 +462,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalWinsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalWinsValue.AutoSize = true;
-            this.lblTrackerGlobalWinsValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalWinsValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalWinsValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalWinsValue.Location = new System.Drawing.Point(285, 97);
             this.lblTrackerGlobalWinsValue.Name = "lblTrackerGlobalWinsValue";
@@ -475,7 +475,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalGamesPlayedValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalGamesPlayedValue.AutoSize = true;
-            this.lblTrackerGlobalGamesPlayedValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalGamesPlayedValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalGamesPlayedValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalGamesPlayedValue.Location = new System.Drawing.Point(144, 97);
             this.lblTrackerGlobalGamesPlayedValue.Name = "lblTrackerGlobalGamesPlayedValue";
@@ -487,7 +487,7 @@ namespace LandasRLTracker
             // lblTrackerGlobalMmrRatioValue
             // 
             this.lblTrackerGlobalMmrRatioValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerGlobalMmrRatioValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalMmrRatioValue.Font = new System.Drawing.Font("Bebas Neue Bold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalMmrRatioValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalMmrRatioValue.Location = new System.Drawing.Point(299, 50);
             this.lblTrackerGlobalMmrRatioValue.Name = "lblTrackerGlobalMmrRatioValue";
@@ -499,7 +499,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalWorstStreakTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalWorstStreakTag.AutoSize = true;
-            this.lblTrackerGlobalWorstStreakTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalWorstStreakTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalWorstStreakTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalWorstStreakTag.Location = new System.Drawing.Point(381, 142);
             this.lblTrackerGlobalWorstStreakTag.Name = "lblTrackerGlobalWorstStreakTag";
@@ -512,7 +512,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalBestStreakTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalBestStreakTag.AutoSize = true;
-            this.lblTrackerGlobalBestStreakTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalBestStreakTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalBestStreakTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalBestStreakTag.Location = new System.Drawing.Point(234, 142);
             this.lblTrackerGlobalBestStreakTag.Name = "lblTrackerGlobalBestStreakTag";
@@ -525,7 +525,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalCurrentStreakTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalCurrentStreakTag.AutoSize = true;
-            this.lblTrackerGlobalCurrentStreakTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalCurrentStreakTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalCurrentStreakTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalCurrentStreakTag.Location = new System.Drawing.Point(14, 142);
             this.lblTrackerGlobalCurrentStreakTag.Name = "lblTrackerGlobalCurrentStreakTag";
@@ -538,7 +538,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalLosesTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalLosesTag.AutoSize = true;
-            this.lblTrackerGlobalLosesTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalLosesTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalLosesTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalLosesTag.Location = new System.Drawing.Point(381, 97);
             this.lblTrackerGlobalLosesTag.Name = "lblTrackerGlobalLosesTag";
@@ -551,7 +551,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalWinsTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalWinsTag.AutoSize = true;
-            this.lblTrackerGlobalWinsTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalWinsTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalWinsTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalWinsTag.Location = new System.Drawing.Point(234, 97);
             this.lblTrackerGlobalWinsTag.Name = "lblTrackerGlobalWinsTag";
@@ -564,7 +564,7 @@ namespace LandasRLTracker
             // 
             this.lblTrackerGlobalGamesPlayedTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTrackerGlobalGamesPlayedTag.AutoSize = true;
-            this.lblTrackerGlobalGamesPlayedTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalGamesPlayedTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalGamesPlayedTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalGamesPlayedTag.Location = new System.Drawing.Point(14, 97);
             this.lblTrackerGlobalGamesPlayedTag.Name = "lblTrackerGlobalGamesPlayedTag";
@@ -576,7 +576,7 @@ namespace LandasRLTracker
             // lblTrackerGlobalMmrRatioTag
             // 
             this.lblTrackerGlobalMmrRatioTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerGlobalMmrRatioTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalMmrRatioTag.Font = new System.Drawing.Font("Bebas Neue Regular", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalMmrRatioTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalMmrRatioTag.Location = new System.Drawing.Point(-6, 51);
             this.lblTrackerGlobalMmrRatioTag.Name = "lblTrackerGlobalMmrRatioTag";
@@ -588,7 +588,7 @@ namespace LandasRLTracker
             // lblTrackerGlobalTag
             // 
             this.lblTrackerGlobalTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerGlobalTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerGlobalTag.Font = new System.Drawing.Font("Bebas Neue Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerGlobalTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerGlobalTag.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblTrackerGlobalTag.Location = new System.Drawing.Point(-2, 3);
@@ -612,7 +612,7 @@ namespace LandasRLTracker
             // lblTrackerLastgameRankDiv
             // 
             this.lblTrackerLastgameRankDiv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastgameRankDiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastgameRankDiv.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastgameRankDiv.ForeColor = System.Drawing.Color.Green;
             this.lblTrackerLastgameRankDiv.Location = new System.Drawing.Point(204, 94);
             this.lblTrackerLastgameRankDiv.Name = "lblTrackerLastgameRankDiv";
@@ -623,7 +623,7 @@ namespace LandasRLTracker
             // lblTrackerLastgameRankValue
             // 
             this.lblTrackerLastgameRankValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastgameRankValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastgameRankValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastgameRankValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastgameRankValue.Location = new System.Drawing.Point(68, 135);
             this.lblTrackerLastgameRankValue.Name = "lblTrackerLastgameRankValue";
@@ -634,7 +634,7 @@ namespace LandasRLTracker
             // lblTrackerLastgameRankTag
             // 
             this.lblTrackerLastgameRankTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastgameRankTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastgameRankTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastgameRankTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastgameRankTag.Location = new System.Drawing.Point(15, 133);
             this.lblTrackerLastgameRankTag.Name = "lblTrackerLastgameRankTag";
@@ -646,7 +646,7 @@ namespace LandasRLTracker
             // lblTrackerLastgamePlaylistValue
             // 
             this.lblTrackerLastgamePlaylistValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastgamePlaylistValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastgamePlaylistValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastgamePlaylistValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastgamePlaylistValue.Location = new System.Drawing.Point(99, 52);
             this.lblTrackerLastgamePlaylistValue.Name = "lblTrackerLastgamePlaylistValue";
@@ -657,7 +657,7 @@ namespace LandasRLTracker
             // lblTrackerLastgamePlaylistTag
             // 
             this.lblTrackerLastgamePlaylistTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastgamePlaylistTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastgamePlaylistTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastgamePlaylistTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastgamePlaylistTag.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblTrackerLastgamePlaylistTag.Location = new System.Drawing.Point(14, 52);
@@ -670,7 +670,7 @@ namespace LandasRLTracker
             // lblTrackerLastgameMmrWonLostValue
             // 
             this.lblTrackerLastgameMmrWonLostValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastgameMmrWonLostValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastgameMmrWonLostValue.Font = new System.Drawing.Font("Bebas Neue Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastgameMmrWonLostValue.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastgameMmrWonLostValue.Location = new System.Drawing.Point(156, 94);
             this.lblTrackerLastgameMmrWonLostValue.Name = "lblTrackerLastgameMmrWonLostValue";
@@ -681,7 +681,7 @@ namespace LandasRLTracker
             // lblTrackerLastgameMmrWonLostTag
             // 
             this.lblTrackerLastgameMmrWonLostTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastgameMmrWonLostTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastgameMmrWonLostTag.Font = new System.Drawing.Font("Bebas Neue Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastgameMmrWonLostTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastgameMmrWonLostTag.Location = new System.Drawing.Point(16, 92);
             this.lblTrackerLastgameMmrWonLostTag.Name = "lblTrackerLastgameMmrWonLostTag";
@@ -693,7 +693,7 @@ namespace LandasRLTracker
             // lblTrackerLastgameTag
             // 
             this.lblTrackerLastgameTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrackerLastgameTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackerLastgameTag.Font = new System.Drawing.Font("Bebas Neue Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackerLastgameTag.ForeColor = System.Drawing.Color.Black;
             this.lblTrackerLastgameTag.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblTrackerLastgameTag.Location = new System.Drawing.Point(-2, 3);
