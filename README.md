@@ -1,5 +1,3 @@
-# Landa's RL Tracker
-
 <p align="center">
   <img src="http://landarltracker.com/images/logo.png"><br></br>
   <b>Website:</b> http://landarltracker.com
