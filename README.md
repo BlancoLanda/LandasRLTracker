@@ -1,5 +1,9 @@
 # Landa's RL Tracker
 
+<p align="center">
+  <img src="http://landarltracker.com/images/logo.png">
+</p>
+
 ## About
 
 Landa's RL Tracker is a tool that allows tracking Rocket League gaming sessions. It gives live detailed information about matches being played for any playlist. Only Steam platform running in a Windows 7+ machine is supported.
